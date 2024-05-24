@@ -1,0 +1,176 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+}
+
+body {
+  background-color: #928e8e;
+  
+}
+
+
+.filter-dropdown {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  z-index: 1000;
+  display: none;
+}
+.filter-dropdown::after {
+  content: "\25BC";
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+th {
+  background-color: #f2f2f2; /* Cor de fundo das células do cabeçalho */
+  border-bottom: 1px solid #ddd; /* Borda inferior das células do cabeçalho */
+  padding: 8px;
+  text-align: left;
+}
+.filter-icon {
+  cursor: pointer;
+  transition: transform 0.3s;
+  color: #666; /* Cor padrão */
+}
+.filter-icon:hover {
+  color: #333; /* Cor destacada ao passar o mouse */
+}
+.filter-icon.open {
+  transform: rotate(180deg);
+  color: #333; /* Cor destacada quando aberto */
+}
+.clear-filter button {
+  margin-top: 10px;
+  display: block; /* Garante que o botão seja exibido como bloco */
+  padding: 8px 15px; /* Adiciona preenchimento ao botão */
+  background-color: white; /* Cor de fundo do botão */
+  cursor: pointer; /* Mostra o cursor como ponteiro ao passar o mouse */
+}
+.clear-filter button:hover {
+  color:white;
+  background-color: black; /* Cor de fundo do botão ao passar o mouse */
+}
+.dataTables_length{
+  display:none;
+}
+
+header {
+  height: 80px;
+}
+
+.containere {
+  display: flex;
+  justify-content: space-around;
+  background-color: #3fc744;
+  padding-top: 2%;
+  height: 100%;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.containere form {
+  width: 12%;
+  padding-right: 9%;
+}
+
+.containere button {
+  border: none;
+  background-color: transparent;
+}
+
+.form {
+  padding-top: 5%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form h1 {
+  color: rgb(46, 46, 46);
+  font-size: 2em;
+  padding-left: 9.5%;
+}
+
+.containere h1 {
+  display: flex;
+  color: aliceblue;
+  font-size: small;
+  padding-top: 1%;
+  margin-left: 10%;
+}
+/* Add this CSS to your existing styles */
+
+.table {
+  width: 100%;
+  background-color: #fff; /* White background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+.table th,
+.table td {
+  border: none; /* Remove default borders */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05); /* Alternate row background color */
+}
+
+.table-hover tbody tr:hover {
+  
+  background-color: rgba(0, 0, 0, 0.075); /* Hover row background color */
+}
+.fixed-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #fff; /* Puedes ajustar el color según tus preferencias */
+}
+
+.dataTables_scrollHeadInner {
+  overflow: visible !important; /* Permite que el cuadro de búsqueda sea visible al desplazar horizontalmente */
+}
+.table th,
+.table td {
+  
+  padding: 12px; /* Add some padding */
+}
+
+.table thead th {
+  
+  background-color: #28a745; /* Header background color */
+  color: #fff; /* Header text color */
+}
+
+.btn-outline-success {
+  color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-outline-success:hover {
+  background-color: #28a745;
+  color: #fff;
+}
+
+
+
+a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+@media screen and (max-width: 600px) {
+  header{
+    padding-top: 2%;
+    width: 77vh;
+  }
+}

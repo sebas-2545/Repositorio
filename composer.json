@@ -1,0 +1,9 @@
+{
+    "require": {
+        "monolog/monolog": "3.6.0",
+        "phpmailer/phpmailer": "^6.9",
+        "phpoffice/phpspreadsheet": "^2.0",
+        "setasign/fpdi-fpdf": "^2.3"
+
+    }
+}

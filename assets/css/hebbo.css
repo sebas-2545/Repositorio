@@ -1,0 +1,208 @@
+.gris{
+	color:#A4A4A4;
+	margin-right:6px;
+	font-size:18px;
+}
+
+.RCONtext{
+	background: #ccc;
+    color: #555;
+    font-family: monospace;
+    font-size:14px;
+	border:2px;
+	margin:2px #555;
+	padding:10px;
+	height:100%;
+	width:100%;
+}
+
+.rwd {width:100%;overflow:auto;}
+        .rwd table.rwd_auto {width:auto;min-width:100%}
+            .rwd_auto th,.rwd_auto td {white-space: nowrap;}
+
+.hrsimple{
+	margin-top: 20px;
+margin-bottom: 20px;
+border: 0;
+border-top: 1px solid #eeeeee;
+}
+
+@font-face {
+    font-family: 'Ubuntu Habbo';
+    src: url(https://hebbo.cl/public/housekeeping/assets/fonts/UbuntuHabbo.woff2) format("woff2"), url(https://hebbo.cl/public/housekeeping/assets/fonts/UbuntuHabbo.woff) format("woff");
+    unicode-range: U+007C, U+2020, U+2022, U+00B6, U+00B1, U+00A5, U+00B5, U+00AA, U+00BA, U+00AC, U+0192, U+00BB, U+2014, U+2018, U+2021;
+}
+
+.main{
+	font-family: 'Ubuntu Habbo';
+}
+
+.boton {
+    background-color: #4CAF50; /* Verde */
+    border: none;
+    color: white;
+    padding: 5px;
+	min-width:20px;
+    text-align: center;
+    text-decoration: none;
+	border-radius:5px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.boton2 {
+    background-color: #4CAF50; /* Verde */
+    border: none;
+    color: white;
+    padding: 7px 19px 8px 20px;
+	min-width: 30px;
+    text-align: center;
+    text-decoration: none;
+	border-radius: 4px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	margin:1px;
+	
+}
+
+.boton3 {
+    background-color: #4CAF50; /* Verde */
+    border: none;
+    color: white;
+    padding: 5px 14px 6px 15px;
+	min-width: 30px;
+    text-align: center;
+    text-decoration: none;
+	border-radius: 4px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 1px;
+	margin-bottom:10px;
+}
+
+.botonsemicuadrado {
+	font-size:18px;
+    background-color: #4CAF50; /* Verde */
+    border: none;
+    color: white;
+    padding: 5px;
+	min-width:20px;
+    text-align: center;
+    text-decoration: none;
+	border-radius:2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.iconogrande{
+	font-size: 18px;
+}
+
+
+.botonverde:hover {
+    background-color: white; 
+    color: #585858; 
+    border: 2px solid #4CAF50;
+}
+
+.botonverde {
+    background-color: #4CAF50;
+    color: white;
+	border: 2px solid #4CAF50;
+}
+
+.botonazul:hover {
+    background-color: white; 
+    color: #585858; 
+    border: 2px solid #438EB9;
+}
+
+.botonazul {
+    background-color: #438EB9;
+    color: white;
+	border: 2px solid #438EB9;
+}
+
+.botonrojo:hover {
+    background-color: white; 
+    color: #585858; 
+    border: 2px solid #f44336;
+}
+
+.botonrojo {
+    background-color: #f44336;
+    color: white;
+	border: 2px solid #f44336;
+}
+
+
+.botongris:hover {
+    background-color: white;
+    color: #585858;
+    border: 2px solid #e7e7e7;
+}
+
+.botongris {
+	background-color: #e7e7e7;
+	color: white;
+	border: 2px solid #e7e7e7;
+}
+
+.botonnegro:hover {
+    background-color: white;
+    color: #585858;
+    border: 2px solid #848484;
+}
+
+.botonnegro {
+    background-color: #848484;
+    color: white;
+	border: 2px solid #848484;
+}
+
+.box {
+  border: solid 1px #e6e6e6;
+  border-radius:5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family:"Ubuntu Condensed", "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.campoform{
+	border: solid 1px #e6e6e6;
+	margin-bottom:3px;
+	border-radius:4px;
+	font-size:16px;
+	min-width:200px;
+}
+
+.loginerror {
+    background-color: #e4323a;
+	color: #ffffff;
+	margin-left:10px;
+	margin-right:10px;
+	border-radius:5px;
+	padding:5px;
+}
+
+
+@media (max-width: 320px) {
+  .navbar-brand{
+  
+  margin-left:50px;
+}
+}
+
+
+
