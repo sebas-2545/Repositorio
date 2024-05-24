@@ -9,22 +9,22 @@ if (!isset($_SESSION['id_usuario'])){
 }
 $iduser = $_SESSION['id_usuario'];
 
-    $sq="SELECT * FROM intructores WHERE correo='$email'";
-    $s = $conn->query($sq);
+    $sq="SELECT * FROM usuarios WHERE idusuarios ='$iduser'";
+    $s = $conexion->query($sq);
     $rr= $s->fetch_assoc();
 
     if(isset($_GET['id'])){
-        $id=$_GET['id'];
+    $id=$_GET['id'];
     $sql="SELECT * FROM registroetapaproductiva WHERE id='$id'";
-    $ress= $conn->query($sql);
+    $ress= $conexion->query($sql);
     $r=$ress->fetch_assoc();
     $te=$r['Id'];
     $extt ="Pdf";
     $nivel=$r['NivelAcademico'];
-    $url='../../controller/pdf.php?id='.$te;
-    $tarea='../../controller/tarea.php?id='. $id . "&PENDIENTE=" . "PENDIENTE";
+    $url='../assets/controller/Controllerpdf.php?id='.$te;
+    $tarea='../assets/controller/tarea.php?id='. $id . "&PENDIENTE=" . "PENDIENTE";
 
-    $numero = "+57" . $rr['telefono'];
+    $numero = "+57" . $rr['Celular'];
 
     $mensaje = "Hola";
     
@@ -73,7 +73,7 @@ $enlace_mailto = 'mailto:' . $destinatario . '?subject=' . $asunto . '&body=' . 
 
         
 }else{
-    header("Location:  http://localhost/xampp/juan/view/login.php");
+    header("Location:../loginphp/index.php");
     exit();
 }
 ?>
@@ -83,14 +83,14 @@ $enlace_mailto = 'mailto:' . $destinatario . '?subject=' . $asunto . '&body=' . 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etapa productiva</title>
+    <link href="../assets/css/index.css" rel="stylesheet">
 
-    <link rel="stylesheet"  type="text/css" href="../../public/css/index.css">
 
 </head>
 <body>
     
 
-    <form action="../../controller/instr_productivo.php" method="post">
+    <form action=" ../assets/controller/iController edistr_productivo.php" method="post">
     <input type="text"  name="id" value=" <?php echo $id  ?>"id="mi_input" style="display: none;">
 
         <div class="Cuadra">
@@ -206,12 +206,12 @@ $enlace_mailto = 'mailto:' . $destinatario . '?subject=' . $asunto . '&body=' . 
             </div>
             <div class="input-container">
             <select name="instructoseg" id=""   required>
-                <option value="<?php if($ress->num_rows>0){ echo $rr['id']; } ?>"><?php if($ress->num_rows>0){ echo $rr['name']; } ?></option>
+                <option value="<?php if($ress->num_rows>0){ echo $rr['idusuarios']; } ?>"><?php if($ress->num_rows>0){ echo $rr['Nombre']; } ?></option>
                 <?php
-                $sql = "SELECT * FROM intructores";
-                $res = $conn->query($sql); 
-                while ($row = $res->fetch_assoc()) {
-                    echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                $ta = "SELECT * FROM usuarios";
+                $ops = $conexion->query($ta); 
+                while ($cup = $ops->fetch_assoc()) {
+                    echo "<option value='" . $cup['idusuarios'] . "'>" . $cup['Nombre'] . "</option>";
                 }
                 ?>
             </select>
@@ -232,12 +232,12 @@ $enlace_mailto = 'mailto:' . $destinatario . '?subject=' . $asunto . '&body=' . 
                 <span class="input-highlight"></span>
             </div>
             <div class="input-container">
-                <input type="date" name="fechaform" class="input-field"  value="<?php if($ress->num_rows>0){ echo $r['FechaFormalizacion']; } ?>" required>
+                <input type="date" name="fechaform" class="input-field"  value="<?php if($ress->num_rows>0){ echo $r['FechaFormalizacion']; } ?>" >
                 <label for="input-field" class="input-label">Fecha de Formalización*</label>
                 <span class="input-highlight"></span>
             </div>
             <div class="input-container">
-                <input type="date" name="fechacerti" class="input-field" value="<?php if($ress->num_rows>0){ echo $r['FechaEstadoPorCertificar']; } ?>" required>
+                <input type="date" name="fechacerti" class="input-field" value="<?php if($ress->num_rows>0){ echo $r['FechaEstadoPorCertificar']; } ?>" >
                 <label for="input-field" class="input-label">Fecha de Estado Por Certificar*</label>
                 <span class="input-highlight"></span>
             </div>
@@ -251,13 +251,13 @@ $enlace_mailto = 'mailto:' . $destinatario . '?subject=' . $asunto . '&body=' . 
             </div>
             
             <div class="input-container">
-                    <input type="date" name="fechaeva" class="input-field"  value="<?php if($ress->num_rows>0){ echo $r['FechaEvaluacionParcial']; } ?>" required>
+                    <input type="date" name="fechaeva" class="input-field"  value="<?php if($ress->num_rows>0){ echo $r['FechaEvaluacionParcial']; } ?>" >
                     <label for="input-field" class="input-label">Fecha de evaluacion parcial*</label>
                     <span class="input-highlight"></span>
             </div>
             
             <div class="input-container">
-                 <input type="date" name="fechares" class="input-field" value="<?php if($ress->num_rows>0){ echo $r['FechaRespuestaCertificacion']; } ?>" required>
+                 <input type="date" name="fechares" class="input-field" value="<?php if($ress->num_rows>0){ echo $r['FechaRespuestaCertificacion']; } ?>" >
                 <label for="input-field" class="input-label">Fecha Respuesta Certificación*</label>
                 <span class="input-highlight"></span>
             </div>
@@ -268,7 +268,7 @@ $enlace_mailto = 'mailto:' . $destinatario . '?subject=' . $asunto . '&body=' . 
             <a href="<?php echo $tarea;?> " class="srm">SOLICITAR RESPUESTA MAGNA</a>
 
             <div class="input-container">
-                <input type="date" name="fechafin" class="input-field" value="<?php if($ress->num_rows>0){ echo $r['FechaEvaluacionFinal']; } ?>" required>
+                <input type="date" name="fechafin" class="input-field" value="<?php if($ress->num_rows>0){ echo $r['FechaEvaluacionFinal']; } ?>" >
                 <label for="input-field" class="input-label">Fecha de Evaluación Final*</label>
                 <span class="input-highlight"></span>
             </div>
@@ -452,7 +452,7 @@ $enlace_mailto = 'mailto:' . $destinatario . '?subject=' . $asunto . '&body=' . 
                     </svg></span>
             </div>
             </button>
-            <div class="button" onclick="location.href='<?php echo './instructor.php' ?>'">
+            <div class="button" onclick="location.href='<?php echo 'Miaprendiz.php' ?>'">
                 <span class="button__text">Salir </span>
                 <span class="button__icon">  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></span>
              </div>

@@ -174,7 +174,7 @@ $url = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 						<b class="arrow"></b>
 
 						<ul class="submenu">
-							<li <?php if (strpos($url,'roomedit.php') !== false) {echo 'class="active"';} if (strpos($url,'rooms.php') !== false) {echo 'class="active"';}?>>
+							<li <?php if (strpos($url,'Miaprendiz.php.php') !== false) {echo 'class="active"';} if (strpos($url,'rooms.php') !== false) {echo 'class="active"';}?>>
 								<a href="Miaprendiz.php">
 									<i class="menu-icon"></i><i class="fa fa-caret-right"></i>
 									Mis aprendices

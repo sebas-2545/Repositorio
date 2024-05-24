@@ -94,7 +94,7 @@ $iduser = $_SESSION['cedula'];
 								<li class="divider"></li>
 
 								<li>
-									<a href="../loginphp/salir.php">
+									<a href="../loginphp/sal.php">
 										<i class="ace-icon fa fa-power-off"></i>
 										Salir
 									</a>

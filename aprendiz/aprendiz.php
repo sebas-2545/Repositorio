@@ -12,10 +12,12 @@ if(isset($_SESSION['cedula'])){
 
     $eta="SELECT * FROM registroetapaproductiva where id_user='$id'";
     $ress=$conexion->query($eta);
-    $r=$ress->fetch_assoc();
-	$te=$r['Id'];
+	if($ress->num_rows >0){
+        $r=$ress->fetch_assoc();
+	   $te=$r['Id'];
+	   $url='.../assets/controller/Controllerpdf.php?id='.$te;
 
-	$url='.../assets/controller/Controllerpdf.php?id='.$te;
+	}
 
     if($id_rol!=5){
         header("Location:  ../loginphp/loginAprendiz.php");

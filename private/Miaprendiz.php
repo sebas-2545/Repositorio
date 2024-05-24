@@ -1,17 +1,16 @@
 <?php
-session_start();
-
-require_once 'validaterol.php';
 include ("../loginphp/conexion.php");
 
+session_start();
 if (!isset($_SESSION['id_usuario'])){
 	header("Location:../loginphp/index.php");
 }
+require_once 'validaterol.php';
 $iduser = $_SESSION['id_usuario'];
 $sql = "SELECT * FROM usuarios WHERE idusuarios = '$iduser'";
 //$sql = "SELECT * FROM Usuarios";
 $resultado = $conexion->query($sql);
-$roww = $resultado->fetch_assoc();
+$row= $resultado->fetch_assoc();
 //$user_q['rol'];
 
 
@@ -23,6 +22,7 @@ $roww = $resultado->fetch_assoc();
 
 
 ?>
+
 <!DOCTYPE html>
 
 <html lang="es">
@@ -42,14 +42,13 @@ $roww = $resultado->fetch_assoc();
 		<link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-rtl.min.css" />
 		<script src="../assets/js/ace-extra.min.js"></script>
-        <link href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/4.0.1/css/fixedColumns.dataTables.min.css"/>
 
-        <style>
-
-        th {
-            z-index: 1 !important;
+       <style>
+        table.dataTable thead>tr>th.dt-orderable-asc, table.dataTable thead>tr>th.dt-orderable-desc, table.dataTable thead>tr>th.dt-ordering-asc, table.dataTable thead>tr>th.dt-ordering-desc, table.dataTable thead>tr>td.dt-orderable-asc, table.dataTable thead>tr>td.dt-orderable-desc, table.dataTable thead>tr>td.dt-ordering-asc, table.dataTable thead>tr>td.dt-ordering-desc{
+            position: unset ;
         }
+       
         .dataTables_wrapper label {
             display: flex !important;
         }
@@ -75,8 +74,7 @@ $roww = $resultado->fetch_assoc();
         body {
             background-color: #928e8e;
         }
-    </style>
-	   </style>
+       </style>
 	</head>
 
 	<body class="no-skin">
@@ -114,10 +112,14 @@ $roww = $resultado->fetch_assoc();
 					</div>
 
 					<div class="page-content">
-<div class="container mt-4">
-    <div class="table-responsive">
 
-        <table id="miTabla" class="table table-striped">
+						<div class="row">
+							<div class="col-xs-12">
+								
+							
+							<!-- PAGE CONTENT BEGINS -->
+
+							<table id="miTabla" class="table table-striped table-hover">
         <thead >
                 <tr>
 
@@ -183,26 +185,26 @@ $roww = $resultado->fetch_assoc();
                 $ext = "completar la información";
                 $extt = "Pdf";
               
-                while ($row = $res->fetch_assoc()) {
-                    $id = $row['Id'];
+                while ($ro = $res->fetch_assoc()) {
+                    $id = $ro['Id'];
 
                     $redi = './index.php?id=' . $id;
                     $urll = '../assets/controller/Controllerpdf.php?id='.$id;
-                    $fechaEspecifica = $row['FechaInicioEtapa'];
+                    $fechaEspecifica = $ro['FechaInicioEtapa'];
                     $fechaEspecificaDateTime = new DateTime($fechaEspecifica);
                     $fechaActualDateTime = new DateTime();
                     $diferencia = $fechaEspecificaDateTime->diff($fechaActualDateTime);
                     $diferenciaMeses = $diferencia->y * 12 + $diferencia->m;
-                    $destinatario = $row['CorreoElectronico']; 
+                    $destinatario = $ro['CorreoElectronico']; 
     
                         $asunto = 'SEGUIMIENTO ' ; 
                     
-                        $cuerpo = "Buen dia". "%0A"."habla con el instrcutor de seguimiento " .$roww['Nombre']  ."%0A".
+                        $cuerpo = "Buen dia". "%0A"."habla con el instrcutor de seguimiento " .$row['Nombre']  ."%0A".
                         "Es para informarle que tiene que enviar los documentos correspondiente para poder formalizar su etapa productiva";
 
-                        $cuer="Buen dia". "%0A"."habla con el instrcutor de seguimiento " .$roww['Nombre']  ."%0A".
+                        $cuer="Buen dia". "%0A"."habla con el instrcutor de seguimiento " .$row['Nombre']  ."%0A".
                         "Es para informarle que me tiene que contactar para hacer el correspondiente seguimiento parcial  ";
-                        $cuerp="Buen dia". "%0A"."habla con el instrcutor de seguimiento " .$roww['Nombre']  ."%0A".
+                        $cuerp="Buen dia". "%0A"."habla con el instrcutor de seguimiento " .$row['Nombre']  ."%0A".
                         "Es para informarle que me tiene que contactar para hacer el correspondiente seguimiento final y asi poder certificarse   ";
                         $msj1 = 'mailto:' . $destinatario . '?subject=' . $asunto . '&body=' . $cuerpo;
                         $msj2 = 'mailto:' . $destinatario . '?subject=' . $asunto . '&body=' . $cuer;
@@ -211,121 +213,121 @@ $roww = $resultado->fetch_assoc();
 
 
 
-                    if ($diferenciaMeses >= 1 && $diferencia->invert == 0 && is_null($row['FechaFormalizacion'])) {
+                    if ($diferenciaMeses >= 1 && $diferencia->invert == 0 && is_null($ro['FechaFormalizacion'])) {
                        $hola= '<a href="' . $msj1 . '" class="btn btn-outline-success btn-sm">Formalizacion debe</a>';
-                    } elseif ($diferenciaMeses >= 3 && $diferencia->invert == 0 && is_null($row['FechaEvaluacionParcial'])) {
+                    } elseif ($diferenciaMeses >= 3 && $diferencia->invert == 0 && is_null($ro['FechaEvaluacionParcial'])) {
                        $hola= '<a href="' . $msj2 . '" class="btn btn-outline-success btn-sm">evaluacion parcial debe </a>';
-                    } elseif ($diferenciaMeses >= 6 && $diferencia->invert == 0 && is_null($row['FechaEvaluacionFinal'])) {
+                    } elseif ($diferenciaMeses >= 6 && $diferencia->invert == 0 && is_null($ro['FechaEvaluacionFinal'])) {
                        $hola= '<a href="' . $msj3 . '" class="btn btn-outline-success btn-sm">evaluacion final debe </a>';
                     } else {
                        $hola= '<div class="custom-alert custom-verde">ESTÁ TODO AL DÍA.</div>';
                     }
 
-                    if ($roww['idusuarios'] == $row['id_intructor']) {
+                    if ($row['idusuarios'] == $ro['id_intructor']) {
                        
                         echo "<tr>";
-                        echo "<td>" . $row['FechaRegistro'] . "</td>";
-                        echo "<td>" . $row['NumeroDocumentoIdentidad'] . "</td>";
-                        echo "<td>" . $row['NombreCompleto'] . "</td>";
-                        echo "<td>" . $row['NumeroFicha'] . "</td>";
-                        echo "<td>" . $row['CorreoElectronico'] . "</td>";
-                        echo "<td>" . $row['NivelAcademico'] . "</td>";
-                        echo "<td>" . $row['ProgramaFormacion'] . "</td>";
-                        echo "<td>" . $row['NumeroCelular'] . "</td>";
-                        echo "<td>" . $row['EmpresaInicioEtapaProductiva'] . "</td>";
-                        echo "<td>" . $row['FechaInicioEtapa'] . "</td>";
-                        echo "<td>" . $row['FechaFinEtapa'] . "</td>";
-                        echo "<td>" . $row['NombreInstructorLectivo'] . "</td>";
-                        echo "<td>" . $row['DireccionEmpresa'] . "</td>";
-                        echo "<td>" . $row['MunicipioCiudad'] . "</td>";
-                        echo "<td>" . $row['NombreJefeInmediato'] . "</td>";
-                        echo "<td>" . $row['TelefonoJefeInmediato'] . "</td>";
-                        echo "<td>" . $row['CorreoJefeInmediato'] . "</td>";
-                        echo "<td>" . $row['TipoAlternativaEtapaProductiva'] . "</td>";
-                        echo "<td>" . $row['DocumentosEntregados'] . "</td>";
-                        echo "<td>" . $row['Respuesmagna'] . "</td>";
-                        echo "<td>" . $row['Registroetapaproductiva'] . "</td>";
-                        echo "<td>" . $row['observaciones'] . "</td>";
-                        echo "<td>" . $row['FechaFormalizacion'] . "</td>";
-                        echo "<td>" . $row['FechaEvaluacionParcial'] . "</td>";
-                        echo "<td>" . $row['FechaEvaluacionFinal'] . "</td>";
-                        echo "<td>" . $row['FechaEstadoPorCertificar'] . "</td>";
-                        echo "<td>" . $row['FechaRespuestaCertificacion'] . "</td>";
-                        echo "<td>" . $row['URLFormulario'] . "</td>";
-                        echo "<td>" . $row['Estado'] . "</td>";
-                        echo "<td>" . $row['FechaSolicitudPazySalvo'] . "</td>";
-                        echo "<td>" . $row['FechaRespuestaCoordinador'] . "</td>";
-                        echo "<td>" . $row['ObservacionesSeguimiento'] . "</td>";
-                        echo "<td>" . $row['FormatoGFPIF023'] . "</td>";
-                        echo "<td>" . $row['CopiaContrato'] . "</td>";
-                        echo "<td>" . $row['FormatoGFPIF165'] . "</td>";
-                        echo "<td>" . $row['RUToNIT'] . "</td>";
-                        echo "<td>" . $row['EPS'] . "</td>";
-                        echo "<td>" . $row['ARL'] . "</td>";
-                        echo "<td>" . $row['FormatoGFPIF023Completo'] . "</td>";
-                        echo "<td>" . $row['FormatoGFPIF147Bitacoras'] . "</td>";
-                        echo "<td>" . $row['CertificacionFinalizacion'] . "</td>";
-                        echo "<td>" . $row['EstadoPorCertificar'] . "</td>";
-                        echo "<td>" . $row['CopiaCedula'] . "</td>";
-                        echo "<td>" . $row['PruebasTyT'] . "</td>";
-                        echo "<td>" . $row['DestruccionCarnet'] . "</td>";
-                        echo "<td>" . $row['CertificadoAPE'] . "</td>";
+                        echo "<td>" . $ro['FechaRegistro'] . "</td>";
+                        echo "<td>" . $ro['NumeroDocumentoIdentidad'] . "</td>";
+                        echo "<td>" . $ro['NombreCompleto'] . "</td>";
+                        echo "<td>" . $ro['NumeroFicha'] . "</td>";
+                        echo "<td>" . $ro['CorreoElectronico'] . "</td>";
+                        echo "<td>" . $ro['NivelAcademico'] . "</td>";
+                        echo "<td>" . $ro['ProgramaFormacion'] . "</td>";
+                        echo "<td>" . $ro['NumeroCelular'] . "</td>";
+                        echo "<td>" . $ro['EmpresaInicioEtapaProductiva'] . "</td>";
+                        echo "<td>" . $ro['FechaInicioEtapa'] . "</td>";
+                        echo "<td>" . $ro['FechaFinEtapa'] . "</td>";
+                        echo "<td>" . $ro['NombreInstructorLectivo'] . "</td>";
+                        echo "<td>" . $ro['DireccionEmpresa'] . "</td>";
+                        echo "<td>" . $ro['MunicipioCiudad'] . "</td>";
+                        echo "<td>" . $ro['NombreJefeInmediato'] . "</td>";
+                        echo "<td>" . $ro['TelefonoJefeInmediato'] . "</td>";
+                        echo "<td>" . $ro['CorreoJefeInmediato'] . "</td>";
+                        echo "<td>" . $ro['TipoAlternativaEtapaProductiva'] . "</td>";
+                        echo "<td>" . $ro['DocumentosEntregados'] . "</td>";
+                        echo "<td>" . $ro['Respuesmagna'] . "</td>";
+                        echo "<td>" . $ro['Registroetapaproductiva'] . "</td>";
+                        echo "<td>" . $ro['observaciones'] . "</td>";
+                        echo "<td>" . $ro['FechaFormalizacion'] . "</td>";
+                        echo "<td>" . $ro['FechaEvaluacionParcial'] . "</td>";
+                        echo "<td>" . $ro['FechaEvaluacionFinal'] . "</td>";
+                        echo "<td>" . $ro['FechaEstadoPorCertificar'] . "</td>";
+                        echo "<td>" . $ro['FechaRespuestaCertificacion'] . "</td>";
+                        echo "<td>" . $ro['URLFormulario'] . "</td>";
+                        echo "<td>" . $ro['Estado'] . "</td>";
+                        echo "<td>" . $ro['FechaSolicitudPazySalvo'] . "</td>";
+                        echo "<td>" . $ro['FechaRespuestaCoordinador'] . "</td>";
+                        echo "<td>" . $ro['ObservacionesSeguimiento'] . "</td>";
+                        echo "<td>" . $ro['FormatoGFPIF023'] . "</td>";
+                        echo "<td>" . $ro['CopiaContrato'] . "</td>";
+                        echo "<td>" . $ro['FormatoGFPIF165'] . "</td>";
+                        echo "<td>" . $ro['RUToNIT'] . "</td>";
+                        echo "<td>" . $ro['EPS'] . "</td>";
+                        echo "<td>" . $ro['ARL'] . "</td>";
+                        echo "<td>" . $ro['FormatoGFPIF023Completo'] . "</td>";
+                        echo "<td>" . $ro['FormatoGFPIF147Bitacoras'] . "</td>";
+                        echo "<td>" . $ro['CertificacionFinalizacion'] . "</td>";
+                        echo "<td>" . $ro['EstadoPorCertificar'] . "</td>";
+                        echo "<td>" . $ro['CopiaCedula'] . "</td>";
+                        echo "<td>" . $ro['PruebasTyT'] . "</td>";
+                        echo "<td>" . $ro['DestruccionCarnet'] . "</td>";
+                        echo "<td>" . $ro['CertificadoAPE'] . "</td>";
                         echo "<td><a href='$redi' class='btn btn-outline-success btn-sm'>Completar</a></td>";
                         echo "<td><a href='../assets/controller/Controllerpdf.php?id='.$id' class='btn btn-outline-success btn-sm'>PDF</a></td>";
                         echo "<td>$hola</td>";
 
                         echo "</tr>";
                     }else{
-                        $id = $row['Id'];
+                        $id = $ro['Id'];
                         $redi = './index.php?id=' . $id;
                         $urll = '../../controller/pdf.php?id=' . $id;
                         echo "<tr>";
-                        echo "<td>" . $row['FechaRegistro'] . "</td>";
-                        echo "<td>" . $row['NumeroDocumentoIdentidad'] . "</td>";
-                        echo "<td>" . $row['NombreCompleto'] . "</td>";
-                        echo "<td>" . $row['NumeroFicha'] . "</td>";
-                        echo "<td>" . $row['CorreoElectronico'] . "</td>";
-                        echo "<td>" . $row['NivelAcademico'] . "</td>";
-                        echo "<td>" . $row['ProgramaFormacion'] . "</td>";
-                        echo "<td>" . $row['NumeroCelular'] . "</td>";
-                        echo "<td>" . $row['EmpresaInicioEtapaProductiva'] . "</td>";
-                        echo "<td>" . $row['FechaInicioEtapa'] . "</td>";
-                        echo "<td>" . $row['FechaFinEtapa'] . "</td>";
-                        echo "<td>" . $row['NombreInstructorLectivo'] . "</td>";
-                        echo "<td>" . $row['DireccionEmpresa'] . "</td>";
-                        echo "<td>" . $row['MunicipioCiudad'] . "</td>";
-                        echo "<td>" . $row['NombreJefeInmediato'] . "</td>";
-                        echo "<td>" . $row['TelefonoJefeInmediato'] . "</td>";
-                        echo "<td>" . $row['CorreoJefeInmediato'] . "</td>";
-                        echo "<td>" . $row['TipoAlternativaEtapaProductiva'] . "</td>";
-                        echo "<td>" . $row['DocumentosEntregados'] . "</td>";
-                        echo "<td>" . $row['Respuesmagna'] . "</td>";
-                        echo "<td>" . $row['Registroetapaproductiva'] . "</td>";
-                        echo "<td>" . $row['observaciones'] . "</td>";
-                        echo "<td>" . $row['FechaFormalizacion'] . "</td>";
-                        echo "<td>" . $row['FechaEvaluacionParcial'] . "</td>";
-                        echo "<td>" . $row['FechaEvaluacionFinal'] . "</td>";
-                        echo "<td>" . $row['FechaEstadoPorCertificar'] . "</td>";
-                        echo "<td>" . $row['FechaRespuestaCertificacion'] . "</td>";
-                        echo "<td>" . $row['URLFormulario'] . "</td>";
-                        echo "<td>" . $row['Estado'] . "</td>";
-                        echo "<td>" . $row['FechaSolicitudPazySalvo'] . "</td>";
-                        echo "<td>" . $row['FechaRespuestaCoordinador'] . "</td>";
-                        echo "<td>" . $row['ObservacionesSeguimiento'] . "</td>";
-                        echo "<td>" . $row['FormatoGFPIF023'] . "</td>";
-                        echo "<td>" . $row['CopiaContrato'] . "</td>";
-                        echo "<td>" . $row['FormatoGFPIF165'] . "</td>";
-                        echo "<td>" . $row['RUToNIT'] . "</td>";
-                        echo "<td>" . $row['EPS'] . "</td>";
-                        echo "<td>" . $row['ARL'] . "</td>";
-                        echo "<td>" . $row['FormatoGFPIF023Completo'] . "</td>";
-                        echo "<td>" . $row['FormatoGFPIF147Bitacoras'] . "</td>";
-                        echo "<td>" . $row['CertificacionFinalizacion'] . "</td>";
-                        echo "<td>" . $row['EstadoPorCertificar'] . "</td>";
-                        echo "<td>" . $row['CopiaCedula'] . "</td>";
-                        echo "<td>" . $row['PruebasTyT'] . "</td>";
-                        echo "<td>" . $row['DestruccionCarnet'] . "</td>";
-                        echo "<td>" . $row['CertificadoAPE'] . "</td>";
+                        echo "<td>" . $ro['FechaRegistro'] . "</td>";
+                        echo "<td>" . $ro['NumeroDocumentoIdentidad'] . "</td>";
+                        echo "<td>" . $ro['NombreCompleto'] . "</td>";
+                        echo "<td>" . $ro['NumeroFicha'] . "</td>";
+                        echo "<td>" . $ro['CorreoElectronico'] . "</td>";
+                        echo "<td>" . $ro['NivelAcademico'] . "</td>";
+                        echo "<td>" . $ro['ProgramaFormacion'] . "</td>";
+                        echo "<td>" . $ro['NumeroCelular'] . "</td>";
+                        echo "<td>" . $ro['EmpresaInicioEtapaProductiva'] . "</td>";
+                        echo "<td>" . $ro['FechaInicioEtapa'] . "</td>";
+                        echo "<td>" . $ro['FechaFinEtapa'] . "</td>";
+                        echo "<td>" . $ro['NombreInstructorLectivo'] . "</td>";
+                        echo "<td>" . $ro['DireccionEmpresa'] . "</td>";
+                        echo "<td>" . $ro['MunicipioCiudad'] . "</td>";
+                        echo "<td>" . $ro['NombreJefeInmediato'] . "</td>";
+                        echo "<td>" . $ro['TelefonoJefeInmediato'] . "</td>";
+                        echo "<td>" . $ro['CorreoJefeInmediato'] . "</td>";
+                        echo "<td>" . $ro['TipoAlternativaEtapaProductiva'] . "</td>";
+                        echo "<td>" . $ro['DocumentosEntregados'] . "</td>";
+                        echo "<td>" . $ro['Respuesmagna'] . "</td>";
+                        echo "<td>" . $ro['Registroetapaproductiva'] . "</td>";
+                        echo "<td>" . $ro['observaciones'] . "</td>";
+                        echo "<td>" . $ro['FechaFormalizacion'] . "</td>";
+                        echo "<td>" . $ro['FechaEvaluacionParcial'] . "</td>";
+                        echo "<td>" . $ro['FechaEvaluacionFinal'] . "</td>";
+                        echo "<td>" . $ro['FechaEstadoPorCertificar'] . "</td>";
+                        echo "<td>" . $ro['FechaRespuestaCertificacion'] . "</td>";
+                        echo "<td>" . $ro['URLFormulario'] . "</td>";
+                        echo "<td>" . $ro['Estado'] . "</td>";
+                        echo "<td>" . $ro['FechaSolicitudPazySalvo'] . "</td>";
+                        echo "<td>" . $ro['FechaRespuestaCoordinador'] . "</td>";
+                        echo "<td>" . $ro['ObservacionesSeguimiento'] . "</td>";
+                        echo "<td>" . $ro['FormatoGFPIF023'] . "</td>";
+                        echo "<td>" . $ro['CopiaContrato'] . "</td>";
+                        echo "<td>" . $ro['FormatoGFPIF165'] . "</td>";
+                        echo "<td>" . $ro['RUToNIT'] . "</td>";
+                        echo "<td>" . $ro['EPS'] . "</td>";
+                        echo "<td>" . $ro['ARL'] . "</td>";
+                        echo "<td>" . $ro['FormatoGFPIF023Completo'] . "</td>";
+                        echo "<td>" . $ro['FormatoGFPIF147Bitacoras'] . "</td>";
+                        echo "<td>" . $ro['CertificacionFinalizacion'] . "</td>";
+                        echo "<td>" . $ro['EstadoPorCertificar'] . "</td>";
+                        echo "<td>" . $ro['CopiaCedula'] . "</td>";
+                        echo "<td>" . $ro['PruebasTyT'] . "</td>";
+                        echo "<td>" . $ro['DestruccionCarnet'] . "</td>";
+                        echo "<td>" . $ro['CertificadoAPE'] . "</td>";
                         echo "<td><a href='$redi' class='btn btn-outline-success btn-sm'>Completar</a></td>";
                         echo "<td><a href='../assets/controller/Controllerpdf.php?id=".$id."' class='btn btn-outline-success btn-sm'>PDF</a></td>";
 
@@ -341,7 +343,11 @@ $roww = $resultado->fetch_assoc();
     </div>
    
 </div>
-	</div><!-- /.col -->
+
+
+								
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
 						</div><!-- /.row -->
 					</div><!-- /.page-content -->
 				</div>
@@ -356,7 +362,7 @@ $roww = $resultado->fetch_assoc();
 
 		<!-- basic scripts -->
 
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+		<script src="../assets/js/jquery-2.1.4.min.js"></script>
 		<script type="text/javascript">
 			window.jQuery || document.write("<script src='../assets/js/jquery.min.js'>"+"<"+"/script>");
 		</script>
@@ -372,17 +378,15 @@ $roww = $resultado->fetch_assoc();
 		<script src="../assets/js/jquery.flot.pie.min.js"></script>
 		<script src="../assets/js/jquery.flot.resize.min.js"></script>
 		<script src="../assets/js/ace-elements.min.js"></script>
-		<script src="../assets/js/ace.min.js"></script>
-		<script src="../assets/datatables/revisar.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
-<script src="https://cdn.datatables.net/searchpanes/1.0.1/js/dataTables.searchPanes.min.js"></script>
+		<script src="../assets/js/ace.min.js"></script><script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
 
- <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>  
-<script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/4.0.1/js/dataTables.fixedColumns.min.js"></script>
+		<script src="../assets/datatables/datatables.min.js"></script>
+		<script src="../assets/datatables/revisar.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/4.0.1/js/dataTables.fixedColumns.min.js"></script>
 <script>
 $(document).ready(function(){
     var table = $('#miTabla').DataTable({
-        "dom": '<"top"lf>rt<"bottom"ip><"clear">',
+       
         "pageLength": 10, // Define la cantidad predeterminada de filas por página
         "lengthMenu": [10], // Elimina la opción de elegir la cantidad de registros por página
         "info": false,
@@ -402,9 +406,30 @@ $(document).ready(function(){
                 "next": "Siguiente",
                 "previous": "Anterior"
             }
-        }
+        },
+         dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="fa fa-file-excel-o"></i> Excel',
+                        titleAttr: 'Exportar a Excel',
+                        className: 'btn btn-success'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class="fa fa-file-pdf-o"></i> PDF',
+                        titleAttr: 'Exportar a PDF',
+                        className: 'btn btn-danger'
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i> Print',
+                        titleAttr: 'Imprimir',
+                        className: 'btn btn-info'
+                    }
+                ],
     });
-
+ 
     $('<button type="button">Limpiar</button>')
         .appendTo('#filter-controls')
         .addClass('clear-filter')
@@ -448,10 +473,5 @@ $(document).ready(function(){
 });
 </script>
 
-
-
-
-
-
-</body>
+	</body>
 </html>
