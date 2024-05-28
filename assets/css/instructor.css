@@ -5,14 +5,10 @@
   font-family: 'Barlow Semi Condensed', sans-serif;
 }
 
-body {
-  background-color: #928e8e;
-  
-}
 
 
 .filter-dropdown {
-  position: absolute;
+  position: relative;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -27,6 +23,10 @@ body {
   right: 10px;
   top: 5px;
 }
+body {
+  background-color: #928e8e;
+}
+
 th {
   background-color: #f2f2f2; /* Cor de fundo das células do cabeçalho */
   border-bottom: 1px solid #ddd; /* Borda inferior das células do cabeçalho */
@@ -46,15 +46,20 @@ th {
   color: #333; /* Cor destacada quando aberto */
 }
 .clear-filter button {
-  margin-top: 10px;
+  margin-bottom: 10px;
   display: block; /* Garante que o botão seja exibido como bloco */
   padding: 8px 15px; /* Adiciona preenchimento ao botão */
   background-color: white; /* Cor de fundo do botão */
-  cursor: pointer; /* Mostra o cursor como ponteiro ao passar o mouse */
+  cursor: pointer;
+  
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-left-width: 0px;
+  border-bottom:1px  solid black ;
 }
 .clear-filter button:hover {
   color:white;
-  background-color: black; /* Cor de fundo do botão ao passar o mouse */
+  background-color: #28a745;/* Cor de fundo do botão ao passar o mouse */
 }
 .dataTables_length{
   display:none;
@@ -106,6 +111,7 @@ header {
 /* Add this CSS to your existing styles */
 
 .table {
+  font-size: 10px;
   width: 100%;
   background-color: #fff; /* White background */
   border-radius: 8px; /* Rounded corners */

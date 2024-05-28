@@ -72,6 +72,8 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 		<link rel="stylesheet" href="../assets/font-awesome/4.5.0/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="../assets/datatables/datatables.css" />
 		<link href="../assets/css/hebbo.css" rel="stylesheet">
+    <link href="../assets/css/excel.css" rel="stylesheet">
+
 		<link rel="stylesheet" href="../assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 		<link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-rtl.min.css" />
@@ -131,7 +133,8 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                        			 <h2 class="pull-left">Ver datos del Instructor</h2>
                     			</div>
                           <p>&nbsp;</p> 
-						<div class="container">		
+                 <div style="display:flex; justify-content: flex-start;">
+                        <div class="container" >		
 <form>
   <div class="form-row">
     <div class="col-md-2 mb-3">
@@ -174,7 +177,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
       <input type="text" class="form-control" value="<?php echo $alterno;?>" readonly>
     </div>
     <?php
-							if ($user_q['rol']=='Administrador' || $user_q['rol']=='Coordinador'){
+			if ($user_q['rol']=='Administrador' || $user_q['rol']=='Coordinador'){
 								echo "<div class='col-md-3 mb-3'> <label >Rol</label>";
                 echo "<input type='text' class='form-control' value=' " . $rol . " ' readonly>";
                 echo "</div>";
@@ -194,11 +197,58 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
   </div>
   <p>&nbsp;</p>
   <p><a href="instructor.php" class="btn btn-primary">Volver</a></p>
-</form>
+<?php
 
-						
+  if ($user_q['rol'] == 'Administrador' || $user_q['rol'] == 'Coordinador') {
+?>
+  <a href="../ControllerExportar.php">exportar</a>					
+  <?php
+} else {
+    echo "<p>.</p>";
+}
+?>
+</form>
 </div>
-								
+<?php
+// Asume que $user_q contiene la información del usuario y está previamente definida.
+// $user_q = array('rol' => 'Administrador'); // Ejemplo de definición
+
+if ($user_q['rol'] == 'Administrador' || $user_q['rol'] == 'Coordinador') {
+?>
+   <div class="juan">
+    <form action="../assets/controller/ControllerInportar.php" method="post" enctype="multipart/form-data">
+        <h2>Subir Archivo Excel</h2>
+        <div class="input-div">
+  <input class="input" type="file" name="archivo_excel"  accept=".xls,.xlsx" required>
+<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" stroke-linejoin="round" stroke-linecap="round" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" class="icon"><polyline points="16 16 12 12 8 16"></polyline><line y2="21" x2="12" y1="12" x1="12"></line><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path><polyline points="16 16 12 12 8 16"></polyline></svg>
+</div>
+        <button>
+          <div class="svg-wrapper-1">
+            <div class="svg-wrapper">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="30"
+                height="30"
+                class="icon"
+              >
+                <path
+                  d="M22,15.04C22,17.23 20.24,19 18.07,19H5.93C3.76,19 2,17.23 2,15.04C2,13.07 3.43,11.44 5.31,11.14C5.28,11 5.27,10.86 5.27,10.71C5.27,9.33 6.38,8.2 7.76,8.2C8.37,8.2 8.94,8.43 9.37,8.8C10.14,7.05 11.13,5.44 13.91,5.44C17.28,5.44 18.87,8.06 18.87,10.83C18.87,10.94 18.87,11.06 18.86,11.17C20.65,11.54 22,13.13 22,15.04Z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <span>Save</span>
+        </button>
+     </form>
+   </div>
+<?php
+} else {
+    echo "<p>.</p>";
+}
+?>
+                        </div>
+						
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->

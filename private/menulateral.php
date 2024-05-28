@@ -143,14 +143,26 @@ $url = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 						<b class="arrow"></b>
 
 						<ul class="submenu">
+
+						<?php if ($user_q['rol'] == 'Administrador' || $user_q['rol'] == 'Coordinador') {?>
 							<li <?php  if (strpos($url,'catalog_badges') !== false) {echo 'class="active"';}?>>
-								<a href="catalog_badges.php">
+								<a href="TYT.php">
 									<i class="menu-icon"></i><i class="fa fa-caret-right"></i>
 									Pruebas TYT
 								</a>
-
+                                 
 								<b class="arrow"></b>
 							</li>
+							<?php }else{ ?>
+								<li <?php  if (strpos($url,'catalog_badges') !== false) {echo 'class="active"';}?>>
+
+                                <a href="#">
+									<i class="menu-icon"></i><i class="fa fa-caret-right"></i>
+									Pruebas TYT
+								</a>
+                                 
+								<b class="arrow"></b>
+							<?php } ?>
 							<li <?php  if (strpos($url,'catalog_refresh.php') !== false) {echo 'class="active"';}?>>
 								<a href="catalog_refresh.php">
 									<i class="menu-icon"></i><i class="fa fa-caret-right"></i>

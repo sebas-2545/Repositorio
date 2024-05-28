@@ -13,23 +13,20 @@ $resultado = $conexion->query($sql);
 $row= $resultado->fetch_assoc();
 //$user_q['rol'];
 
-
-
     $sql = "SELECT * FROM registroetapaproductiva";
     $res = $conexion->query($sql);
    
-
-
-
 ?>
 
 <!DOCTYPE html>
-
 <html lang="es">
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
 		<title>Instructores de Etapa Productiva - Sesion CC-<?php echo $row['Usuario']?></title>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/4.0.1/css/fixedColumns.dataTables.min.css"/>
+
 		<link rel="shortcut icon" href="../assets/etapa/icono.ico" type="image/x-icon">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 		<meta name="description" content="overview &amp; stats" />
@@ -37,142 +34,117 @@ $row= $resultado->fetch_assoc();
 		<link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="../assets/font-awesome/4.5.0/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="../assets/datatables/datatables.css" />
-		<link href="../assets/css/instructor.css" rel="stylesheet">
+        <link href="../assets/css/instructor.css" rel="stylesheet">
+		<link href="../assets/css/hebbo.css" rel="stylesheet">
 		<link rel="stylesheet" href="../assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 		<link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-rtl.min.css" />
 		<script src="../assets/js/ace-extra.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/4.0.1/css/fixedColumns.dataTables.min.css"/>
-
-       <style>
-        table.dataTable thead>tr>th.dt-orderable-asc, table.dataTable thead>tr>th.dt-orderable-desc, table.dataTable thead>tr>th.dt-ordering-asc, table.dataTable thead>tr>th.dt-ordering-desc, table.dataTable thead>tr>td.dt-orderable-asc, table.dataTable thead>tr>td.dt-orderable-desc, table.dataTable thead>tr>td.dt-ordering-asc, table.dataTable thead>tr>td.dt-ordering-desc{
-            position: unset ;
-        }
-       
-        .dataTables_wrapper label {
-            display: flex !important;
-        }
-        .dataTables_paginate {
-            text-align: left;
-        }
-        .filter-dropdown {
-            position: relative;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 5px;
-            z-index: 1000;
-            display: none;
-        }
-        .filter-dropdown::after {
-            content: "\25BC";
-            position: absolute;
-            right: 10px;
-            top: 5px;
-        }
-        body {
-            background-color: #928e8e;
-        }
-       </style>
+        <style>
+           th.tes.sorting {
+    position: unset !important;
+}
+        </style>
 	</head>
-
+     
 	<body class="no-skin">
-		<?php require_once("encabeza.php"); ?>
+    <?php require_once("encabeza.php"); ?>
 
-		<div class="main-container" id="main-container">
-			<script type="text/javascript">
-				try{ace.settings.check('main-container','fixed')}catch(e){}
-			</script>
-				
-				<!-- MOSTRAR EL MENU  -->
-				<?php require_once("menulateral.php"); ?>
-				<!-- fin Menu Lateral -->
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try{ace.settings.check('main-container','fixed')}catch(e){}
+    </script>
+        
+        <!-- MOSTRAR EL MENU  -->
+        <?php require_once("menulateral.php"); ?>
+        <!-- fin Menu Lateral -->
 
-			<div class="main-content">
-				<div class="main-content-inner">
-					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
-						<ul class="breadcrumb">
-							<li>
-								<i class="ace-icon fa fa-home home-icon"></i>
-								<a href="admin.php">Inicio</a>
-							</li>
-							<li class="active">Instructores</li>
-						</ul><!-- /.breadcrumb -->
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="ace-icon fa fa-home home-icon"></i>
+                        <a href="admin.php">Inicio</a>
+                    </li>
+                    <li class="active">Instructores</li>
+                </ul><!-- /.breadcrumb -->
 
-						<!--
-						<div class="nav-search" id="nav-search">
-							<form class="form-search">
-								<span class="input-icon">
-									<input type="text" placeholder="Buscar ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-									<i class="ace-icon fa fa-search nav-search-icon"></i>
-								</span>
-							</form>
-						</div> /.nav-search -->
-					</div>
+                <!--
+                <div class="nav-search" id="nav-search">
+                    <form class="form-search">
+                        <span class="input-icon">
+                            <input type="text" placeholder="Buscar ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                            <i class="ace-icon fa fa-search nav-search-icon"></i>
+                        </span>
+                    </form>
+                </div> /.nav-search -->
+            </div>
 
-					<div class="page-content">
+            <div class="page-content">
 
-						<div class="row">
-							<div class="col-xs-12">
-								
-							
-							<!-- PAGE CONTENT BEGINS -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        
+                    
+                    <!-- PAGE CONTENT BEGINS -->
 
-							<table id="miTabla" class="table table-striped table-hover">
+                    	<!-- PAGE CONTENT BEGINS -->
+                        <div class="container mt-4">
+    <div class="table-responsive">
+							<table id="miTabla" class="table table-striped ">
         <thead >
                 <tr>
 
 
-                    <th scope="col">Fecha de Registro</th>
                     <th scope="col">Número de Documento de Identidad</th>
                     <th scope="col">Nombre Completo</th>
                     <th scope="col">Número de Ficha</th>
-                    <th scope="col">Correo Electrónico</th>
-                    <th scope="col">Nivel Académico</th>
-                    <th scope="col">Programa de Formación</th>
-                    <th scope="col">Número de Celular</th>
-                    <th scope="col">Empresa de Inicio de Etapa Productiva</th>
-                    <th scope="col">Fecha de Inicio de Etapa</th>
-                    <th scope="col">Fecha de Fin de Etapa</th>
-                    <th scope="col">Nombre del Instructor/Lectivo</th>
-                    <th scope="col">Dirección de la Empresa</th>
-                    <th scope="col">Municipio/Ciudad</th>
-                    <th scope="col">Nombre del Jefe Inmediato</th>
-                    <th scope="col">Teléfono del Jefe Inmediato</th>
-                    <th scope="col">Correo del Jefe Inmediato</th>
-                    <th scope="col">Tipo de Alternativa de Etapa Productiva</th>
-                    <th scope="col">Documentos Entregados</th>
-                    <th scope="col">Respuesta Magna</th>
-                    <th scope="col">Registro de Etapa Productiva</th>
-                    <th scope="col">Observaciones</th>
-                    <th scope="col">Fecha de Formalización</th>
-                    <th scope="col">Fecha de Evaluación Parcial</th>
-                    <th scope="col">Fecha de Evaluación Final</th>
-                    <th scope="col">Fecha de Estado por Certificar</th>
-                    <th scope="col">Fecha de Respuesta de Certificación</th>
-                    <th scope="col">URL del Formulario</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Fecha de Solicitud de Paz y Salvo</th>
-                    <th scope="col">Fecha de Respuesta del Coordinador</th>
-                    <th scope="col">Observaciones de Seguimiento</th>
-                    <th scope="col">Formato GFPIF023</th>
-                    <th scope="col">Copia de Contrato</th>
-                    <th scope="col">Formato GFPIF165</th>
-                    <th scope="col">RUT o NIT</th>
-                    <th scope="col">EPS</th>
-                    <th scope="col">ARL</th>
-                    <th scope="col">Formato GFPIF023 Completo</th>
-                    <th scope="col">Formato GFPIF147 Bitácoras</th>
-                    <th scope="col">Certificación de Finalización</th>
-                    <th scope="col">Estado por Certificar</th>
-                    <th scope="col">Copia de Cédula</th>
-                    <th scope="col">Pruebas TyT</th>
-                    <th scope="col">Destrucción de Carnet</th>
-                    <th scope="col">Certificado APE</th>
-                    <th scope="col">Ver más..</th>
-                    <th scope="col">PDF</th>
-                    <th scope="col">comunicate</th>
+                    <th scope="col" class="tes">Correo Electrónico</th>
+                    <th scope="col" class="tes">Nivel Académico</th>
+                    <th scope="col" class="tes">Programa de Formación</th>
+                    <th scope="col" class="tes">Número de Celular</th>
+                    <th scope="col" class="tes">Empresa de Inicio de Etapa Productiva</th>
+                    <th scope="col" class="tes">Fecha de Inicio de Etapa</th>
+                    <th scope="col" class="tes">Fecha de Fin de Etapa</th>
+                    <th scope="col" class="tes">Nombre del Instructor/Lectivo</th>
+                    <th scope="col" class="tes">Dirección de la Empresa</th>
+                    <th scope="col" class="tes">Municipio/Ciudad</th>
+                    <th scope="col" class="tes">Nombre del Jefe Inmediato</th>
+                    <th scope="col" class="tes">Teléfono del Jefe Inmediato</th>
+                    <th scope="col" class="tes">Correo del Jefe Inmediato</th>
+                    <th scope="col" class="tes">Tipo de Alternativa de Etapa Productiva</th>
+                    <th scope="col" class="tes">Documentos Entregados</th>
+                    <th scope="col" class="tes">Respuesta Magna</th>
+                    <th scope="col" class="tes">Registro de Etapa Productiva</th>
+                    <th scope="col" class="tes">Observaciones</th>
+                    <th scope="col" class="tes">Fecha de Formalización</th>
+                    <th scope="col" class="tes">Fecha de Evaluación Parcial</th>
+                    <th scope="col" class="tes">Fecha de Evaluación Final</th>
+                    <th scope="col" class="tes">Fecha de Estado por Certificar</th>
+                    <th scope="col" class="tes">Fecha de Respuesta de Certificación</th>
+                    <th scope="col" class="tes">URL del Formulario</th>
+                    <th scope="col" class="tes">Estado</th>
+                    <th scope="col" class="tes">Fecha de Solicitud de Paz y Salvo</th>
+                    <th scope="col" class="tes">Fecha de Respuesta del Coordinador</th>
+                    <th scope="col" class="tes">Observaciones de Seguimiento</th>
+                    <th scope="col" class="tes">Formato GFPIF023</th>
+                    <th scope="col" class="tes">Copia de Contrato</th>
+                    <th scope="col" class="tes">Formato GFPIF165</th>
+                    <th scope="col" class="tes">RUT o NIT</th>
+                    <th scope="col" class="tes">EPS</th>
+                    <th scope="col" class="tes">ARL</th>
+                    <th scope="col" class="tes">Formato GFPIF023 Completo</th>
+                    <th scope="col" class="tes">Formato GFPIF147 Bitácoras</th>
+                    <th scope="col" class="tes">Certificación de Finalización</th>
+                    <th scope="col" class="tes">Estado por Certificar</th>
+                    <th scope="col" class="tes">Copia de Cédula</th>
+                    <th scope="col" class="tes">Pruebas TyT</th>
+                    <th scope="col" class="tes">Destrucción de Carnet</th>
+                    <th scope="col" class="tes">Certificado APE</th>
+                    <th scope="col" class="tes">Ver más..</th>
+                    <th scope="col" class="tes">PDF</th>
+                    <th scope="col" class="tes">comunicate</th>
 
                 </tr>
 
@@ -226,7 +198,6 @@ $row= $resultado->fetch_assoc();
                     if ($row['idusuarios'] == $ro['id_intructor']) {
                        
                         echo "<tr>";
-                        echo "<td>" . $ro['FechaRegistro'] . "</td>";
                         echo "<td>" . $ro['NumeroDocumentoIdentidad'] . "</td>";
                         echo "<td>" . $ro['NombreCompleto'] . "</td>";
                         echo "<td>" . $ro['NumeroFicha'] . "</td>";
@@ -282,7 +253,6 @@ $row= $resultado->fetch_assoc();
                         $redi = './index.php?id=' . $id;
                         $urll = '../../controller/pdf.php?id=' . $id;
                         echo "<tr>";
-                        echo "<td>" . $ro['FechaRegistro'] . "</td>";
                         echo "<td>" . $ro['NumeroDocumentoIdentidad'] . "</td>";
                         echo "<td>" . $ro['NombreCompleto'] . "</td>";
                         echo "<td>" . $ro['NumeroFicha'] . "</td>";
@@ -340,29 +310,29 @@ $row= $resultado->fetch_assoc();
                 ?>
             </tbody>
         </table>
-    </div>
+    
+        </div>
    
+   </div>
+
+
+
+                        
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+    
+    <?php require_once("piedepagina.php"); ?>
+    <!-- /.Pie de pagina -->
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+    </a>
 </div>
 
-
-								
-								<!-- PAGE CONTENT ENDS -->
-							</div><!-- /.col -->
-						</div><!-- /.row -->
-					</div><!-- /.page-content -->
-				</div>
-			</div><!-- /.main-content -->
-			
-			<?php require_once("piedepagina.php"); ?>
-			<!-- /.Pie de pagina -->
-			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-			</a>
-		</div><!-- /.main-container -->
-
-		<!-- basic scripts -->
-
-		<script src="../assets/js/jquery-2.1.4.min.js"></script>
+<script src="../assets/js/jquery-2.1.4.min.js"></script>
 		<script type="text/javascript">
 			window.jQuery || document.write("<script src='../assets/js/jquery.min.js'>"+"<"+"/script>");
 		</script>
@@ -378,12 +348,17 @@ $row= $resultado->fetch_assoc();
 		<script src="../assets/js/jquery.flot.pie.min.js"></script>
 		<script src="../assets/js/jquery.flot.resize.min.js"></script>
 		<script src="../assets/js/ace-elements.min.js"></script>
-		<script src="../assets/js/ace.min.js"></script><script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>  
-
-		<script src="../assets/datatables/datatables.min.js"></script>
-		<script src="../assets/datatables/revisar.js"></script>
+		<script src="../assets/js/ace.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/4.0.1/js/dataTables.fixedColumns.min.js"></script>
-<script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+      
+        <script>
 $(document).ready(function(){
     var table = $('#miTabla').DataTable({
        
@@ -392,7 +367,7 @@ $(document).ready(function(){
         "info": false,
         "scrollX": true, // Habilitar scroll horizontal
         "fixedColumns": {
-            "leftColumns": 5 // Fija las primeras 5 columnas
+            "leftColumns": 3 // Fija las primeras 5 columnas
         },
         "language": {
             "search": "Buscador:",
@@ -472,6 +447,7 @@ $(document).ready(function(){
     });
 });
 </script>
+
 
 	</body>
 </html>
