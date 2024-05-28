@@ -72,6 +72,14 @@
 
 								<b class="arrow"></b>
 							</li>
+							<li class="">
+								<a href="buscador.php">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Consulta De Instructor De Segumiento
+								</a>
+
+								<b class="arrow"></b>
+							</li>
 						</ul>
 					</li>
 					<li class="">
@@ -86,7 +94,7 @@
 
 						<ul class="submenu">
 							<li class="">
-									<a href="#">
+									<a href="TyT.php">
 										<i class="menu-icon fa fa-caret-right"></i>
 										Pruebas tyt
 									</a>
