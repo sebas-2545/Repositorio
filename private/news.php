@@ -81,6 +81,37 @@ $row = $resultado->fetch_assoc();
 								
 							
 							<!-- PAGE CONTENT BEGINS -->
+                            <style>
+                                .fixed-columns thead th:nth-child(1),
+                                .fixed-columns tbody td:nth-child(1),
+                                .fixed-columns thead tr:first-child th:nth-child(1) {
+                                    position: sticky;
+                                    left: 0;
+                                    z-index: 1;
+                                    background-color: #fff; /* Ajusta el color de fondo según sea necesario */
+                                }
+
+                                .fixed-columns thead th:nth-child(1),
+                                .fixed-columns tbody td:nth-child(1) {
+                                    /* Ancho de la primera columna */
+                                }
+
+                                /* Resto de estilos */
+                                table {
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                }
+                                
+                                th, td {
+                                    border: 1px solid #dddddd;
+                                    text-align: left;
+                                    padding: 8px;
+                                }
+                                
+                                th {
+                                    background-color: #f2f2f2; /* Color de fondo para las celdas de encabezado */
+                                }
+                            </style>
                            
                                
                                 <!-- Agregamos un campo de búsqueda -->
@@ -97,7 +128,7 @@ $row = $resultado->fetch_assoc();
                                 }
                                 include '../loginphp/conexion.php';
 
-                                $table = 'datos_exceldatos1_1714747072';
+                                $table = 'fichas';
                                 $query = "SELECT *, id AS editable_id FROM `{$table}`";
 
                                 // Verifica si se ha proporcionado un término de búsqueda
@@ -129,15 +160,18 @@ $row = $resultado->fetch_assoc();
                                 $result = $stmt->get_result();
                                 ?>
 
-                                <table id='dataTable'>
+                                <table id="dataTable" class="display fixed-columns">
                                     <thead>
                                         <tr>
                                         <?php
-                                        $columnsResult = $conexion->query("SHOW COLUMNS FROM `{$table}`");
                                         $columns = [];
-                                        while ($column = $columnsResult->fetch_assoc()) {
-                                            $columns[] = $column['Field'];
-                                            echo "<th>{$column['Field']}</th>";
+                                        $columnsQuery = $conexion->query("SHOW COLUMNS FROM `{$table}`");
+                                        while ($column = $columnsQuery->fetch_assoc()) {
+                                            // Si el nombre de la columna no es 'id', imprímelo
+                                            if ($column['Field'] !== 'id') {
+                                                $columns[] = $column['Field'];
+                                                echo "<th>{$column['Field']}</th>";
+                                            }
                                         }
                                         ?>
                                         </tr>
@@ -155,23 +189,6 @@ $row = $resultado->fetch_assoc();
                                     ?>
                                     </tbody>
                                 </table>
-                                <?php
-                                if (!empty($_SESSION['username'])) {
-                                    $nombre_responsable = $_SESSION['username'];
-                                    $stmt = $conexion->prepare("SELECT COUNT(*) AS count FROM `{$table}` WHERE `NOMBRE_RESPONSABLE` = ?");
-                                    $stmt->bind_param('s', $nombre_responsable);
-                                    $stmt->execute();
-                                    $result = $stmt->get_result();
-                                    $count = $result->fetch_assoc()['count'];
-
-                                    if ($count > 0) {
-                                        echo "<form action='ver_fichas.php' method='post'>";
-                                        echo "<input type='hidden' name='nombre_responsable' value='$nombre_responsable'>";
-                                        echo "<button type='submit' class='custom-button'>Ver Mis Fichas</button>"; // Añade la clase custom-button aquí
-                                        echo "</form>";
-                                    }
-                                }
-                                ?>
                                 <!-- PAGE CONTENT ENDS -->
                                 </div><!-- /.col -->
                                                         </div><!-- /.row -->

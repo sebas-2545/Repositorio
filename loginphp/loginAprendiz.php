@@ -118,7 +118,7 @@
             <p>
                 Ingrese tu correo electrónico para recibir las instrucciones
             </p>
-            <form method="POST" action="../assets/controller/ControllerRecuperar_contraseña.php">
+            <form  action="../assets/controller/ControllerRecuperar_contraseña.php" method="POST">
                 <fieldset>
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
@@ -127,7 +127,7 @@
                         </span>
                     </label>
                     <div class="clearfix">
-                        <button type="submit" class="width-35 pull-right btn btn-sm btn-danger">
+                        <button  type="submit" class="width-35 pull-right btn btn-sm btn-danger">
                             <i class="ace-icon fa fa-lightbulb-o"></i>
                             <span class="bigger-110">Enviar</span>
                         </button>

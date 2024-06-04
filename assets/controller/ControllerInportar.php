@@ -44,7 +44,7 @@ if($archivo_error === UPLOAD_ERR_OK) {
                             $quer = "SELECT id FROM registroetapaproductiva WHERE NumeroDocumentoIdentidad ='$r[1]'";
                             $eje = $conexion->query($quer);
                             // busca el instructor 
-                            //$instru = "SELECT * FROM intructores WHERE id='$r[47]'";
+                            //$instru = "SELECT * FROM tyt WHERE id='$r[47]'";
                            // $ins=$conexion->query($instru);
 
                             //if ($ins->num_rows > 0) {
