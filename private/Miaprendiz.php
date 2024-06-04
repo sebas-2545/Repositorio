@@ -363,8 +363,8 @@ $row= $resultado->fetch_assoc();
 $(document).ready(function(){
     var table = $('#miTabla').DataTable({
        
-        "pageLength": 10, // Define la cantidad predeterminada de filas por página
-        "lengthMenu": [10], // Elimina la opción de elegir la cantidad de registros por página
+        "pageLength": 20, // Define la cantidad predeterminada de filas por página
+        "lengthMenu": [20], // Elimina la opción de elegir la cantidad de registros por página
         "info": false,
         "scrollX": true, // Habilitar scroll horizontal
         "fixedColumns": {
@@ -406,7 +406,7 @@ $(document).ready(function(){
                 ],
     });
  
-    $('<button type="button">Limpiar</button>')
+    $('<button type="button">Limpiar filtro</button>')
         .appendTo('#filter-controls')
         .addClass('clear-filter')
         .on('click', function() {

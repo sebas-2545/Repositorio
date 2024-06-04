@@ -125,8 +125,8 @@ if($archivo_error === UPLOAD_ERR_OK) {
                                 } else {
                                     try {
                                         $secret = password_hash($r[1], PASSWORD_DEFAULT);
-                                        $create = $conexion->prepare("INSERT INTO user (cedula, contrasena, id_rol) VALUES (?, ?, 2)");
-                                        $create->bind_param("ss", $r[1], $secret);
+                                        $create = $conexion->prepare("INSERT INTO user (cedula, email, contrasena, id_rol) VALUES (?, ?,?, 5)");
+                                        $create->bind_param("sss", $r[1],$r[4], $secret);
                                         
                                         if ($create->execute()) {
                                             // Busca el instructor
@@ -280,6 +280,6 @@ if($archivo_error === UPLOAD_ERR_OK) {
 echo "<script>
         alert ('EXCEL IMPORTADO CON EXITO');
 
-        window.location='../../private/perfil.php';
+        window.location='../../private/admin.php';
         </script>";
 ?>

@@ -6,8 +6,9 @@
 
 						<b class="arrow"></b>
 					</li>
-                    <li class="">
-									<a href="TyT.php" class="dropdown-toggle">
+					         
+                   			 <li class="">
+									<a href="TyT.php" >
 										<i class="menu-icon fa fa-users"></i>
 										Info Pruebas tyt
 									</a>
@@ -15,7 +16,7 @@
 									<b class="arrow"></b>
 							</li>
 							<li class="">
-								<a href="buscador.php" class="dropdown-toggle">
+								<a href="buscador.php" >
 									<i class="menu-icon fa fa-users"></i>
 									Consulta Instructor de Segumiento
 								</a>
@@ -42,14 +43,7 @@
 									<b class="arrow"></b>
 							</li>
 							
-							<li class="">
-								<a href="#">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Consultar Instructor
-								</a>
-
-								<b class="arrow"></b>
-							</li>
+							
 						</ul>
 					</li>
 					

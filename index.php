@@ -16,7 +16,6 @@
 		<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
 		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
 		<script src="assets/js/ace-extra.min.js"></script>
-<<<<<<< HEAD
 <style> .download-link {
         display: inline-block;
         padding: 10px 20px;
@@ -38,7 +37,6 @@
  /* Quita el borde */
 
     }</style>
-=======
 		
 <style>
 	.chatbot-icon {
@@ -84,7 +82,6 @@
 			height: 450px;
         }
 </style>
->>>>>>> 5de18f024f42698effff0a4457324cc981fc38b6
 	</head>
 
 	<body class="no-skin">
