@@ -1,8 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  padding: 20px;
   background-color: #f4f4f4;
-  position: relative; /* Agregamos esto para que el botón se posicione correctamente */
 }
 table, th, td {
   padding: 8px;

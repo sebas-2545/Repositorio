@@ -134,9 +134,9 @@ if (!$row) {
                                                 <input type="email" name="CORREO" value="<?php echo htmlspecialchars($row['CORREO']); ?>" ><br>
                                                 <label for="FECHA_MOMENTO_UNO">Fecha Momento Uno</label>
                                                 <input type="date" name="FECHA_MOMENTO_UNO" value="<?php echo htmlspecialchars($row['FECHA_MOMENTO_UNO']); ?>"><br>
-                                                <label for="FECHA_MOMENTO_UNO">Fecha Momento Uno</label>
+                                                <label for="FECHA_MOMENTO_DOS">Fecha Momento Dos</label>
                                                 <input type="date" name="FECHA_MOMENTO_DOS" value="<?php echo htmlspecialchars($row['FECHA_MOMENTO_DOS']); ?>"><br>
-                                                <label for="FECHA_MOMENTO_UNO">Fecha Momento Uno</label>
+                                                <label for="FECHA_MOMENTO_TRES">Fecha Momento Tres</label>
                                                 <input type="date" name="FECHA_MOMENTO_TRES" value="<?php echo htmlspecialchars($row['FECHA_MOMENTO_TRES']); ?>"><br>
                                                 <input type="submit" value="Actualizar">
                                             </form>

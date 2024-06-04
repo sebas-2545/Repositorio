@@ -166,12 +166,13 @@ if ($row) {
                                         echo "<td>" . $row['DOCUMENTO PDF DE CORREO DESERCIONES EN LA CARPETA OTROS'] . "</td>";
                                         echo "<td>" . $row['ESTRUCTURADELODOCUMENTOSCONLOSNUMEROS Y NOMBRES DE CADA APRENDIZ'] . "</td>";
                                         echo "<td>" . $row['ESTADO'] . "</td>";
+                                        echo "<form action='../Asignaciones/actualizar_cumple.php' method='post'>";
                                         echo "<td><input type='date' name='fecha_momento_uno[" . $row['id'] . "]' value='" . $row['FECHA_MOMENTO_UNO'] . "'></td>";
                                         echo "<td><input type='date' name='fecha_momento_dos[" . $row['id'] . "]' value='" . $row['FECHA_MOMENTO_DOS'] . "'></td>";
                                         echo "<td><input type='date' name='fecha_momento_tres[" . $row['id'] . "]' value='" . $row['FECHA_MOMENTO_TRES'] . "'></td>";
-                                        echo "<td>";
-                                        echo "<form action='../Asignaciones/actualizar_cumple.php' method='post'>";
                                         echo "<input type='hidden' name='id' value='" . $row['id'] . "'>";
+                                        echo "<td>";
+
                                         echo "<select name='ESTADO'>";
                                         echo "<option value='ABIERTO'" . ($row['ESTADO'] === 'ABIERTO' ? ' selected' : '') . ">ABIERTO</option>";
                                         echo "<option value='CERRADO'" . ($row['ESTADO'] === 'CERRADO' ? ' selected' : '') . ">CERRADO</option>";
