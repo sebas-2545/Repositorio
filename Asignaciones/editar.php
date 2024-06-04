@@ -31,7 +31,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 
 $id = intval($_GET['id']);
-$stmt = $conexion->prepare("SELECT * FROM datos_exceldatos1_1714747072 WHERE id = ?");
+$stmt = $conexion->prepare("SELECT * FROM fichas WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -109,13 +109,35 @@ if (!$row) {
                                             <form action="../Asignaciones/actualizar_registro.php" method="post">
                                                 <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                                 <label for="INSTRUCTOR_SEGUIMIENTO_ACTUAL">INSTRUCTOR SEGUIMIENTO ACTUAL</label><br>
-                                                <input type="text" name="INSTRUCTOR_SEGUIMIENTO_ACTUAL" value="<?php echo htmlspecialchars($row['INSTRUCTOR_SEGUIMIENTO_ACTUAL']); ?>"><br>
+                                                <select name="INSTRUCTOR_SEGUIMIENTO_ACTUAL">
+                                                    <?php
+                                                    // Consulta para obtener los nombres de los instructores de seguimiento de la tabla de usuarios
+                                                    $query = "SELECT idusuarios, Nombre FROM usuarios";
+                                                    $result = $conexion->query($query);
+
+                                                    // Verificar si la consulta fue exitosa
+                                                    if ($result && $result->num_rows > 0) {
+                                                        // Iterar sobre los resultados y crear las opciones del select
+                                                        while ($rowUsuario = $result->fetch_assoc()) {
+                                                            // Verificar si este usuario es el seleccionado actualmente
+                                                            $selected = ($row['INSTRUCTOR_SEGUIMIENTO_ACTUAL'] == $rowUsuario['Nombre']) ? 'selected' : '';
+                                                            echo "<option value='{$rowUsuario['Nombre']}' $selected>{$rowUsuario['Nombre']}</option>";
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select><br>
                                                 <label for="Correo_Instructor">Correo Instructor</label><br>
                                                 <input type="email" name="Correo_Instructor" value="<?php echo htmlspecialchars($row['Correo_Instructor']); ?>" required><br>
                                                 <label for="INSTRUCTOR_ANTERIOR">INSTRUCTOR ANTERIOR</label><br>
                                                 <input type="text" name="INSTRUCTOR_ANTERIOR" value="<?php echo htmlspecialchars($row['INSTRUCTOR_ANTERIOR']); ?>"><br>
                                                 <label for="CORREO">CORREO</label><br>
                                                 <input type="email" name="CORREO" value="<?php echo htmlspecialchars($row['CORREO']); ?>" ><br>
+                                                <label for="FECHA_MOMENTO_UNO">Fecha Momento Uno</label>
+                                                <input type="date" name="FECHA_MOMENTO_UNO" value="<?php echo htmlspecialchars($row['FECHA_MOMENTO_UNO']); ?>"><br>
+                                                <label for="FECHA_MOMENTO_UNO">Fecha Momento Uno</label>
+                                                <input type="date" name="FECHA_MOMENTO_DOS" value="<?php echo htmlspecialchars($row['FECHA_MOMENTO_DOS']); ?>"><br>
+                                                <label for="FECHA_MOMENTO_UNO">Fecha Momento Uno</label>
+                                                <input type="date" name="FECHA_MOMENTO_TRES" value="<?php echo htmlspecialchars($row['FECHA_MOMENTO_TRES']); ?>"><br>
                                                 <input type="submit" value="Actualizar">
                                             </form>
                                             <button id="redirectButton">

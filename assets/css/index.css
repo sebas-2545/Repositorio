@@ -436,6 +436,7 @@ th {
   height: 220px;
   opacity: 1;
 }
+<<<<<<< HEAD
 @media screen and (max-width: 600px) {
   *{
     font-size: 12px;
@@ -510,3 +511,6 @@ th {
     z-index:auto;
   }
 }
+=======
+
+>>>>>>> 5de18f024f42698effff0a4457324cc981fc38b6

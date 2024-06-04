@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['id'];
     $cumple = $_POST['ESTADO'];
 
-    $query = "UPDATE datos_exceldatos1_1714747072 SET ESTADO = ? WHERE id = ?";
+    $query = "UPDATE fichas SET ESTADO = ? WHERE id = ?";
     $stmt = $conexion->prepare($query);
     if ($stmt->execute([$cumple, $id])) {
         echo "<script>alert('Registro actualizado correctamente.'); window.location='../private/buscador.php';</script>";

@@ -70,6 +70,46 @@ if ($row) {
                     <div class="row">
                         <div class="col-xs-12">
                             <!-- PAGE CONTENT BEGINS -->
+                            <style>
+                                .fixed-columns thead th:nth-child(1),
+                                .fixed-columns tbody td:nth-child(1),
+                                .fixed-columns thead tr:first-child th:nth-child(1) {
+                                    position: sticky;
+                                    left: 0;
+                                    z-index: 1;
+                                    background-color: #fff; /* Ajusta el color de fondo según sea necesario */
+                                }
+
+                                .fixed-columns thead th:nth-child(1),
+                                .fixed-columns tbody td:nth-child(1) {
+                                    /* Ancho de la primera columna */
+                                }
+
+                                /* Resto de estilos */
+                                table {
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                }
+                                
+                                th, td {
+                                    border: 1px solid #dddddd;
+                                    text-align: left;
+                                    padding: 8px;
+                                }
+                                
+                                th {
+                                    background-color: #f2f2f2; /* Color de fondo para las celdas de encabezado */
+                                }
+                            </style>
+                            <?php
+                            if ($user_q['rol']=='Administrador' || $user_q['rol']=='Coordinador'){
+                                echo "<script>
+
+                            window.location='news.php';
+                                    </script>";
+
+                        }
+                        ?>
                             <div class="container">
                                 <?php
                                 // Incluir archivo de conexión a la base de datos
@@ -80,7 +120,7 @@ if ($row) {
                                     $nombre_responsable = $_SESSION['username'];
 
                                     // Consulta para obtener las fichas asociadas al nombre del responsable
-                                    $query = "SELECT * FROM `datos_exceldatos1_1714747072` WHERE `NOMBRE_RESPONSABLE` = ?";
+                                    $query = "SELECT * FROM `fichas` WHERE `INSTRUCTOR_SEGUIMIENTO_ACTUAL` = ?";
                                     $stmt = $conexion->prepare($query);
                                     $stmt->bind_param('s', $nombre_responsable);
                                     $stmt->execute();
@@ -88,8 +128,8 @@ if ($row) {
 
                                     // Mostrar resultados en una tabla
                                     echo "<h2>Fichas asignadas a $nombre_responsable</h2>";
-                                    echo "<table id='dataTable' class='display'>";
-                                    echo "<thead><tr><th>CODIGO DE FICHA</th><th>NIVEL DE FORMACION</th><th>NOMBRE_RESPONSABLE</th><th>FECHA_INICIO_FICHA</th><th>FECHA_TERMINACION_FICHA</th><th>MODALIDAD</th><th>NOMBRE_PROGRAMA_FORMACION</th><th>NOMBRE_MUNICIPIO_CURSO</th><th>TOTAL_APRENDICES_ACTIVOS</th><th>FECHA TERMINACIÓN E.LECTIVA</th><th>FECHA TERM. E.PRODUCTIVA Y LEG.MATRICULA</th><th>FECHA LIMITE PARA INICIO DE ETAPA PRODUCTIVA</th><th>INSTRUCTOR_SEGUIMIENTO_ACTUAL</th><th>Correo_Instructor</th><th>INSTRUCTOR_ANTERIOR</th><th>CORREO</th><th>ESTADO</th><th>ACCIONES</th></tr></thead>
+                                    echo "<table id='dataTable' class='display fixed-columns'>";
+                                    echo "<thead><tr><th>CODIGO DE FICHA</th><th>NIVEL DE FORMACION</th><th>NOMBRE_RESPONSABLE</th><th>FECHA_INICIO_FICHA</th><th>FECHA_TERMINACION_FICHA</th><th>MODALIDAD</th><th>NOMBRE_PROGRAMA_FORMACION</th><th>NOMBRE_MUNICIPIO_CURSO</th><th>TOTAL_APRENDICES_ACTIVOS</th><th>FECHA TERMINACIÓN E.LECTIVA</th><th>FECHA TERM. E.PRODUCTIVA Y LEG.MATRICULA</th><th>FECHA LIMITE PARA INICIO DE ETAPA PRODUCTIVA</th><th>INSTRUCTOR_SEGUIMIENTO_ACTUAL</th><th>Correo_Instructor</th><th>INSTRUCTOR_ANTERIOR</th><th>CORREO</th><th>CELULAR</th><th>Coordinador</th><th>Aprendices Activos</th><th>Registro en Sofía Plus</th><th>CARPETA CREADA DE LA FICHA</th><th>CREAR CARPETA OTROS POR CADA FICHA</th><th>REPORTE F165 DE TODOS EN LA CARPETA OTROS</th><th>Reporte Aprendices en la carpeta Otros</th><th>JUICIOS EVALUATIVOS ACTUALIZADOS EN LA CARPETA OTROS</th><th>ACTA MOMENTO1 EN LA CARPETA OTROS</th><th>ACTA MOMENTO2 EN LA CARPETA OTROS</th><th>ACTA DE CIERRE DE LA FICHA EN LA CARPETA OTROS</th><th>DOCUMENTO PDF DE ANUNCIOS EN LA CARPETA OTROS</th><th>DOCUMENTO PDF DE CORREO DESERCIONES EN LA CARPETA OTROS</th><th>ESTRUCTURADELODOCUMENTOSCONLOSNUMEROS Y NOMBRES DE CADA APRENDIZ</th><th>ESTADO</th><th>FECHA_MOMENTO_UNO</th><th>FECHA_MOMENTO_DOS</th><th>FECHA_MOMENTO_TRES</th><th>ACCIONES</th></tr></thead>
                                     <tbody>";
 
                                     while ($row = $result->fetch_assoc()) {
@@ -110,18 +150,37 @@ if ($row) {
                                         echo "<td>" . $row['Correo_Instructor'] . "</td>";
                                         echo "<td>" . $row['INSTRUCTOR_ANTERIOR'] . "</td>";
                                         echo "<td>" . $row['CORREO'] . "</td>";
+                                        echo "<td>" . $row['CELULAR'] . "</td>";
+                                        echo "<td>" . $row['Coordinador'] . "</td>";
+                                        echo "<td>" . $row['Aprendices Activos'] . "</td>";
+                                        echo "<td>" . $row['Registro en Sofía Plus'] . "</td>";
+                                        echo "<td>" . $row['CARPETA CREADA DE LA FICHA'] . "</td>";
+                                        echo "<td>" . $row['CREAR CARPETA OTROS POR CADA FICHA'] . "</td>";
+                                        echo "<td>" . $row['REPORTE F165 DE TODOS EN LA CARPETA OTROS'] . "</td>";
+                                        echo "<td>" . $row['Reporte Aprendices en la carpeta Otros'] . "</td>";
+                                        echo "<td>" . $row['JUICIOS EVALUATIVOS ACTUALIZADOS EN LA CARPETA OTROS'] . "</td>";
+                                        echo "<td>" . $row['ACTA MOMENTO1 EN LA CARPETA OTROS'] . "</td>";
+                                        echo "<td>" . $row['ACTA MOMENTO2 EN LA CARPETA OTROS'] . "</td>";
+                                        echo "<td>" . $row['ACTA DE CIERRE DE LA FICHA EN LA CARPETA OTROS'] . "</td>";
+                                        echo "<td>" . $row['DOCUMENTO PDF DE ANUNCIOS EN LA CARPETA OTROS'] . "</td>";
+                                        echo "<td>" . $row['DOCUMENTO PDF DE CORREO DESERCIONES EN LA CARPETA OTROS'] . "</td>";
+                                        echo "<td>" . $row['ESTRUCTURADELODOCUMENTOSCONLOSNUMEROS Y NOMBRES DE CADA APRENDIZ'] . "</td>";
                                         echo "<td>" . $row['ESTADO'] . "</td>";
+                                        echo "<td><input type='date' name='fecha_momento_uno[" . $row['id'] . "]' value='" . $row['FECHA_MOMENTO_UNO'] . "'></td>";
+                                        echo "<td><input type='date' name='fecha_momento_dos[" . $row['id'] . "]' value='" . $row['FECHA_MOMENTO_DOS'] . "'></td>";
+                                        echo "<td><input type='date' name='fecha_momento_tres[" . $row['id'] . "]' value='" . $row['FECHA_MOMENTO_TRES'] . "'></td>";
                                         echo "<td>";
-                                        echo "<form action='actualizar_cumple.php' method='post'>";
+                                        echo "<form action='../Asignaciones/actualizar_cumple.php' method='post'>";
                                         echo "<input type='hidden' name='id' value='" . $row['id'] . "'>";
-                                        echo "<select name='estado'>";
-                                        echo "<option value='abierto'" . ($row['ESTADO'] === 'abierto' ? ' selected' : '') . ">Abierto</option>";
-                                        echo "<option value='cerrado'" . ($row['ESTADO'] === 'cerrado' ? ' selected' : '') . ">Cerrado</option>";
+                                        echo "<select name='ESTADO'>";
+                                        echo "<option value='ABIERTO'" . ($row['ESTADO'] === 'ABIERTO' ? ' selected' : '') . ">ABIERTO</option>";
+                                        echo "<option value='CERRADO'" . ($row['ESTADO'] === 'CERRADO' ? ' selected' : '') . ">CERRADO</option>";
                                         echo "</select>";
                                         echo "<input type='submit' value='Guardar'>";
                                         echo "</form>";
                                         echo "</td>";
                                         echo "</tr>";
+                                        
                                     }
 
                                     echo "</tbody></table>";

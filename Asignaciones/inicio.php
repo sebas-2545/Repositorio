@@ -6,8 +6,8 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 require '../vendor/autoload.php';
 include ("../loginphp/conexion.php");
 use PhpOffice\PhpSpreadsheet\IOFactory;
-
-$tableName = 'datos_exceldatos1_1714747072';
+use Carbon\Carbon;
+$tableName = 'fichas';
 
 if (isset($_POST['submit']) && isset($_FILES['fileToUpload'])) {
     $file = $_FILES['fileToUpload'];
@@ -62,7 +62,7 @@ function importarDatos($archivoExcel, $pdo) {
      
  
     
-    $tableName = 'datos_exceldatos1_1714747072';
+    $tableName = 'fichas';
     $data = $hojaExcel->rangeToArray('A2:' . $hojaExcel->getHighestColumn() . $hojaExcel->getHighestRow(), NULL, TRUE, FALSE);
     $placeholders = array_fill(0, count($header), '?');
     $sql = "INSERT INTO `$tableName` (" . implode(', ', array_map(function($h) { return "`$h`"; }, $header)) . ") VALUES (" . implode(', ', $placeholders) . ")";
@@ -79,9 +79,10 @@ function importarDatos($archivoExcel, $pdo) {
             $dateTime = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[$indiceFechaTerminacion]);
             $row[$indiceFechaTerminacion] = $dateTime->format('Y-m-d');
         }
+        
 
         // Calcular y asignar las fechas calculadas
-        if ($nivelFormacion == "TECNOLOGO" || $nivelFormacion == "TECNICO") {
+        if ($nivelFormacion == "TECNÓLOGO" || $nivelFormacion == "TÉCNICO"|| $nivelFormacion == "OPERARIO") {
             list($row[$indiceFinEtapaElectiva], $row[$indiceFinPracticas], $row[$indiceFechaLimitePracticas]) = calculateAdditionalDates(
                 $row[$indiceFechaInicio], $row[$indiceFechaTerminacion], $nivelFormacion);
         } else {
@@ -102,19 +103,42 @@ function actualizarDatos($archivoExcel, $pdo, $tableName) {
     $data = $hojaExcel->rangeToArray('A2:' . $hojaExcel->getHighestColumn() . $hojaExcel->getHighestRow(), NULL, TRUE, FALSE);
 
     foreach ($data as $row) {
-        $placeholders = array_fill(0, count($row), '?');
+        // Convertir la fecha al formato adecuado
+        $formattedRow = array_map(function($cell) {
+            // Si el valor es una fecha válida, conviértelo al formato YYYY-MM-DD
+            if (DateTime::createFromFormat('d-m-Y', $cell) !== false) {
+                return DateTime::createFromFormat('d-m-Y', $cell)->format('Y-m-d');
+            } else {
+                // Si no es una fecha válida, deja el valor como está
+                return $cell;
+            }
+        }, $row);
+
+        // Aquí debemos ajustar las fechas según los índices correspondientes a las columnas de fecha
+        $indiceFechaInicio = array_search('FECHA_INICIO_FICHA', $header);
+        $indiceFechaTerminacion = array_search('FECHA_TERMINACION_FICHA', $header);
+
+        if (!empty($formattedRow[$indiceFechaInicio]) && is_numeric($formattedRow[$indiceFechaInicio])) {
+            $dateTime = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($formattedRow[$indiceFechaInicio]);
+            $formattedRow[$indiceFechaInicio] = $dateTime->format('Y-m-d');
+        }
+        if (!empty($formattedRow[$indiceFechaTerminacion]) && is_numeric($formattedRow[$indiceFechaTerminacion])) {
+            $dateTime = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($formattedRow[$indiceFechaTerminacion]);
+            $formattedRow[$indiceFechaTerminacion] = $dateTime->format('Y-m-d');
+        }
+
+        $placeholders = array_fill(0, count($formattedRow), '?');
         $updatePlaceholders = array_map(function($h) { return "`$h` = VALUES(`$h`)"; }, $header);
         $sql = "INSERT INTO `$tableName` (`" . implode('`, `', $header) . "`) VALUES (" . implode(', ', $placeholders) . ")
                 ON DUPLICATE KEY UPDATE " . implode(', ', $updatePlaceholders);
 
         $stmt = $pdo->prepare($sql);
-        $stmt->execute($row);
+        $stmt->execute($formattedRow);
     }
 
     // Agregar mensaje de éxito
     echo "<script>alert('Los datos se han actualizado con éxito.'); window.location='inicio.php';</script>";
 }
-
 
 
 function compararDatos($archivoExcel, $mysqli, $tableName) {
@@ -169,45 +193,45 @@ function compararDatos($archivoExcel, $mysqli, $tableName) {
 
 
 function calculateAdditionalDates($fechaInicio, $fechaTerminacion, $nivelFormacion) {
-    $fechaInicio = new DateTime($fechaInicio);
-    $fechaTerminacion = new DateTime($fechaTerminacion);
+    try {
+        // Crear objetos Carbon a partir de las fechas
+        $fechaInicioCarbon = Carbon::createFromFormat('Y-m-d', $fechaInicio);
+        $fechaTerminacionCarbon = Carbon::createFromFormat('Y-m-d', $fechaTerminacion);
 
-    $finEtapaElectiva = $inicioPracticas = $finPracticas = $fechaLimitePracticas = null;
+        // Inicializar variables
+        $finEtapaElectiva = $inicioPracticas = $finPracticas = $fechaLimitePracticas = null;
 
-    if ($nivelFormacion == "TECNOLOGO") {
-        $finEtapaElectiva = clone $fechaInicio;
-        $finEtapaElectiva->add(new DateInterval('P21M'));
-        $inicioPracticas = clone $finEtapaElectiva;
-        $finPracticas = clone $inicioPracticas;
-        $finPracticas->add(new DateInterval('P0M'));
-        $fechaLimitePracticas = clone $inicioPracticas;
-        $fechaLimitePracticas->add(new DateInterval('P24M'));
-    } elseif ($nivelFormacion == "TECNICO") {
-        $finEtapaElectiva = clone $fechaInicio;
-        $finEtapaElectiva->add(new DateInterval('P6M'));
-        $inicioPracticas = clone $finEtapaElectiva;
-        $finPracticas = clone $inicioPracticas;
-        $finPracticas->add(new DateInterval('P24M'));
-        $fechaLimitePracticas = clone $inicioPracticas;
-        $fechaLimitePracticas->add(new DateInterval('P18M'));
-    } else {
-        // Lanza un error o maneja la situación de forma adecuada
-        throw new Exception("Nivel de formación no reconocido: " . $nivelFormacion);
-    }
+        // Definir las variables relacionadas con las fechas según el nivel de formación
+        if ($nivelFormacion == "TECNÓLOGO") {
+            $finEtapaElectiva = $fechaInicioCarbon->copy()->addMonths(21);
+            $inicioPracticas = $finEtapaElectiva->copy();
+            $finPracticas = $inicioPracticas->copy()->addMonths(24); // Asumí que este es un valor estático
+            $fechaLimitePracticas = $inicioPracticas->copy()->addMonths(18);
+        } elseif ($nivelFormacion == "TÉCNICO") {
+            $finEtapaElectiva = $fechaInicioCarbon->copy()->addMonths(6);
+            $inicioPracticas = $finEtapaElectiva->copy();
+            $finPracticas = $inicioPracticas->copy()->addMonths(24);
+            $fechaLimitePracticas = $inicioPracticas->copy()->addMonths(18);
+        } elseif ($nivelFormacion == "OPERARIO") {
+            $finEtapaElectiva = $fechaInicioCarbon->copy()->addMonths(3);
+            $inicioPracticas = $finEtapaElectiva->copy();
+            $finPracticas = $inicioPracticas->copy()->addMonths(24);
+            $fechaLimitePracticas = $inicioPracticas->copy()->addMonths(18);
+        } else {
+            throw new Exception("Nivel de formación no reconocido: " . $nivelFormacion);
+        }
 
-    if (!$finEtapaElectiva || !$finPracticas || !$fechaLimitePracticas) {
-        throw new Exception("Error calculando fechas.");
-    }
-    if (empty($nivelFormacion)) {
-        // Manejar el caso de $nivelFormacion vacío o nulo
+        // Retornar las fechas calculadas
+        return [
+            $finEtapaElectiva->format('Y-m-d'),
+            $finPracticas->format('Y-m-d'),
+            $fechaLimitePracticas->format('Y-m-d')
+        ];
+    } catch (Exception $e) {
+        // Manejar cualquier excepción que pueda ocurrir durante el cálculo de fechas
+        echo 'Error al calcular las fechas: ' . $e->getMessage();
         return [null, null, null];
     }
-
-    return [
-        $finEtapaElectiva->format('Y-m-d'),
-        $finPracticas->format('Y-m-d'),
-        $fechaLimitePracticas->format('Y-m-d')
-    ];
 }
 ?>
 
@@ -243,7 +267,7 @@ function calculateAdditionalDates($fechaInicio, $fechaTerminacion, $nivelFormaci
 			</script>
 				
 				<!-- MOSTRAR EL MENU  -->
-				<?php require_once("../private/menulateral.php"); ?>
+				<?php require_once("../Asignaciones/menulateral.php"); ?>
 				<!-- fin Menu Lateral -->
 
 			<div class="main-content">

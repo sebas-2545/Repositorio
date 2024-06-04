@@ -44,7 +44,14 @@ if($archivo_error === UPLOAD_ERR_OK) {
                             //busca si la persona ya esta registrada
                             $quer = "SELECT id FROM registroetapaproductiva WHERE NumeroDocumentoIdentidad ='$r[1]'";
                             $eje = $conexion->query($quer);
-                           
+                            // busca el instructor 
+                            //$instru = "SELECT * FROM intructores WHERE id='$r[47]'";
+                           // $ins=$conexion->query($instru);
+
+                            //if ($ins->num_rows > 0) {
+                                //define la id del instructor 
+                               // $hs=$ins->fetch_assoc();
+                                //
                                 $FechaRegistro = convertirFechaMySQL($r[0]);
                                 $fechaInicioEtapa = convertirFechaMySQL($r[9]);
                                 $fechaFinEtapa = convertirFechaMySQL($r[10]);

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chatbot</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.chat-message {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    border-radius: 8px;
+    padding: 10px;
+    max-width: 80%;
+}
+
+.chat-message.user {
+    background-color: #e1e4d9;
+    margin-left: auto;
+}
+
+.chat-message.bot {
+    background-color: #2e951e;
+    color: #fff;
+}
+
+.chat-message .icon {
+    margin-right: 10px;
+}
+
+.chat-message.bot .icon {
+    margin-right: 10px;
+}
+
+.user-input-container {
+    display: flex;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+#user-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px 0 0 8px;
+    font-size: 16px;
+}
+
+#send-button {
+    padding: 10px 20px;
+    background-color: #2e951e;
+    color: #fff;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#send-button:hover {
+    background-color: #ece50a;
+}
+
+.quick-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+}
+
+.quick-options button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2e951e;
+    color: #fff;
+    cursor: pointer;
+}
+
+.quick-options button:hover {
+    background-color: #2e951e;
+}
+
+.loading {
+    display: none;
+    text-align: center;
+    padding: 10px;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+    <div id="chat-container">
+        <div class="chat-message bot">
+            <div class="icon"><i class="fas fa-robot"></i></div>
+            <div>¡Hola! Soy Chatbot. ¿En qué puedo ayudarte?</div>
+        </div>
+        <div class="quick-options">
+            <button onclick="sendQuickOption('1')">Pregunta Referente Hacia Las TyT</button>
+            <button onclick="sendQuickOption('2')">Pregunta Referente A La Consultoria De Instructor De Etapa Productiva</button>
+            <button onclick="sendQuickOption('3')">Pregunta Referente A los Videos De Las Pruebas TyT</button>
+        </div>
+    </div>
+    <div class="loading" id="loading">Cargando...</div>
+    <div class="user-input-container">
+        <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
+        <button id="send-button">Enviar</button>
+    </div>
+</div>
+
+<script>
+function sendMessage() {
+    var userInput = document.getElementById("user-input").value;
+    if (!userInput.trim()) return;
+
+    appendMessage("Tú", userInput, "user");
+    document.getElementById("user-input").value = "";
+
+    // Mostrar indicador de carga
+    document.getElementById("loading").style.display = "block";
+
+    // Enviar la pregunta al servidor
+    sendRequest(userInput);
+}
+
+function sendRequest(query) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                var response = JSON.parse(this.responseText);
+                setTimeout(function() {
+                    document.getElementById("loading").style.display = "none";
+                    appendMessage("Chatbot", response.text, "bot");
+                }, 3000); // Retraso de 3 segundos
+            } else {
+                setTimeout(function() {
+                    document.getElementById("loading").style.display = "none";
+                    appendMessage("Chatbot", "Hubo un error al obtener la respuesta.", "bot");
+                }, 3000); // Retraso de 3 segundos
+            }
+        }
+    };
+    xhttp.open("GET", "chatbot.php?q=" + encodeURIComponent(query), true);
+    xhttp.send();
+}
+
+function appendMessage(sender, message, type) {
+    var chatContainer = document.getElementById("chat-container");
+    var messageContainer = document.createElement("div");
+    messageContainer.classList.add("chat-message", type);
+    
+    var iconHtml = type === "user" ? '<div class="icon"><i class="fas fa-user"></i></div>' : '<div class="icon"><i class="fas fa-robot"></i></div>';
+    messageContainer.innerHTML = `${iconHtml}<div><strong>${sender}</strong><br>${message}</div>`;
+    
+    chatContainer.appendChild(messageContainer);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+function sendQuickOption(option) {
+    appendMessage("Tú", option, "user");
+
+    // Mostrar indicador de carga
+    document.getElementById("loading").style.display = "block";
+
+    // Enviar la pregunta al servidor
+    sendRequest(option);
+}
+
+document.getElementById("send-button").addEventListener("click", sendMessage);
+
+document.getElementById("user-input").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+});
+</script>
+</body>
+</html>

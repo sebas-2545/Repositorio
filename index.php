@@ -16,6 +16,7 @@
 		<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
 		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
 		<script src="assets/js/ace-extra.min.js"></script>
+<<<<<<< HEAD
 <style> .download-link {
         display: inline-block;
         padding: 10px 20px;
@@ -37,6 +38,53 @@
  /* Quita el borde */
 
     }</style>
+=======
+		
+<style>
+	.chatbot-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  
+  .chatbot-icon i {
+    font-size: 24px;
+    color: #007bff;
+  }
+  
+  .chatbot-icon:hover {
+    transform: scale(1.1);
+  }
+        /* Estilos para el modal del chatbot */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9998; /* Asegurar que el modal esté sobre el botón */
+            left: 60%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%; /* Ancho del modal */
+            max-width: 600px; /* Ancho máximo del modal */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+			height: 450px;
+        }
+</style>
+>>>>>>> 5de18f024f42698effff0a4457324cc981fc38b6
 	</head>
 
 	<body class="no-skin">
@@ -178,6 +226,12 @@
 					</div><!-- /.page-content -->
 				</div>
 			</div><!-- /.main-content -->
+			<div id="chatbot-modal" class="modal">
+                <div class="modal-content">
+                <!-- Aquí se cargará el contenido del chatbot -->
+                </div>
+            </div>
+
 			
 			<?php require_once("piedepagina.php"); ?>
 			<!-- /.Pie de pagina -->
@@ -185,6 +239,33 @@
 				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 			</a>
 		</div><!-- /.main-container -->
+		
+		<div class="chatbot-icon" onclick="goToChatbotPage()">
+		<i class="fas fa-comment-alt"></i>
+		<button class="chatbot-button" onclick="openChatbotModal()">
+        <i class="bi bi-chat-dots"></i> <!-- Icono del botón -->
+        </button>
+        </div>
+		<script>
+function openChatbotModal() {
+    // Obtener el contenedor modal
+    var modal = document.getElementById("chatbot-modal");
+
+    // Mostrar el modal
+    modal.style.display = "block";
+
+    // Cargar el contenido del chatbot en el contenedor modal
+    modal.querySelector(".modal-content").innerHTML = '<object type="text/html" data="chatbot.html" style="width:100%; height:90%; font-size: 16px; line-height: 1.5;"></object>';
+}
+
+// Cerrar el modal si el usuario hace clic fuera de él
+window.onclick = function(event) {
+    var modal = document.getElementById("chatbot-modal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 
 		<!-- basic scripts -->
 
