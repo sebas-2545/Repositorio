@@ -41,6 +41,7 @@ $row= $resultado->fetch_assoc();
 		<link rel="stylesheet" href="../assets/css/ace-rtl.min.css" />
 		<script src="../assets/js/ace-extra.min.js"></script>
         <style>
+            
            th.tes.sorting {
     position: unset !important;
 }
@@ -123,7 +124,7 @@ $row= $resultado->fetch_assoc();
                     <th scope="col" class="tes">Fecha de Evaluación Final</th>
                     <th scope="col" class="tes">Fecha de Estado por Certificar</th>
                     <th scope="col" class="tes">Fecha de Respuesta de Certificación</th>
-                    <th scope="col" class="tes">URL del Formulario</th>
+                    <th scope="col" class="tesseb">URL del Formulario</th>
                     <th scope="col" class="tes">Estado</th>
                     <th scope="col" class="tes">Fecha de Solicitud de Paz y Salvo</th>
                     <th scope="col" class="tes">Fecha de Respuesta del Coordinador</th>
@@ -143,8 +144,8 @@ $row= $resultado->fetch_assoc();
                     <th scope="col" class="tes">Destrucción de Carnet</th>
                     <th scope="col" class="tes">Certificado APE</th>
                     <th scope="col" class="tes">Ver más..</th>
-                    <th scope="col" class="tes">PDF</th>
-                    <th scope="col" class="tes">comunicate</th>
+                    <th scope="col" id="j" class="tes">PDF</th>
+                    <th scope="col" id="j"class="tes">comunicate</th>
 
                 </tr>
 

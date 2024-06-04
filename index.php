@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -16,7 +16,27 @@
 		<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
 		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
 		<script src="assets/js/ace-extra.min.js"></script>
+<style> .download-link {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff; /* Color de fondo del botón */
+        color: #fff; /* Color del texto */
+        text-decoration: none; /* Quita el subrayado */
+        border-radius: 5px; /* Bordes redondeados */
+        border: none; /* Quita el borde */
+        cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    }
 
+    /* Cambia el color de fondo del botón al pasar el mouse */
+    .download-link:hover {
+                background-color: gold; /* Color de fondo del botón */
+
+        color:white;
+       border: none;      
+       text-decoration: none; /* Quita el subrayado */
+ /* Quita el borde */
+
+    }</style>
 	</head>
 
 	<body class="no-skin">
@@ -145,7 +165,8 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- CONTENIDO PAGINA-->
-                         
+								<a href="TyT.php"  class="download-link" >info TYT </a>
+
 
 
 

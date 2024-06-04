@@ -6,7 +6,22 @@
 
 						<b class="arrow"></b>
 					</li>
+                    <li class="">
+									<a href="TyT.php" class="dropdown-toggle">
+										<i class="menu-icon fa fa-users"></i>
+										Info Pruebas tyt
+									</a>
 
+									<b class="arrow"></b>
+							</li>
+							<li class="">
+								<a href="buscador.php" class="dropdown-toggle">
+									<i class="menu-icon fa fa-users"></i>
+									Consulta Instructor de Segumiento
+								</a>
+
+								<b class="arrow"></b>
+							</li>
 					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-users"></i>
@@ -26,6 +41,7 @@
 
 									<b class="arrow"></b>
 							</li>
+							
 							<li class="">
 								<a href="#">
 									<i class="menu-icon fa fa-caret-right"></i>
@@ -36,7 +52,7 @@
 							</li>
 						</ul>
 					</li>
-
+					
 					<li class="">
 						<a href="index.php">
 							<i class="menu-icon fa fa-picture-o"></i>
@@ -72,14 +88,7 @@
 
 								<b class="arrow"></b>
 							</li>
-							<li class="">
-								<a href="buscador.php">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Consulta De Instructor De Segumiento
-								</a>
-
-								<b class="arrow"></b>
-							</li>
+							
 						</ul>
 					</li>
 					<li class="">
@@ -93,18 +102,19 @@
 						<b class="arrow"></b>
 
 						<ul class="submenu">
-							<li class="">
-									<a href="TyT.php">
-										<i class="menu-icon fa fa-caret-right"></i>
-										Pruebas tyt
-									</a>
-
-									<b class="arrow"></b>
-							</li>
+							
 							<li class="">
 								<a href="#">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Consultar Datos
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="">
+								<a href="noticia/noticia.php">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Notcias 
 								</a>
 
 								<b class="arrow"></b>

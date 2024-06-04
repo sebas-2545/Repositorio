@@ -135,7 +135,11 @@ $url = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 					<li <?php if (strpos($url,'catalog_refresh.php') !== false) {echo 'class="active"';} if (strpos($url,'catalog_badges') !== false) {echo 'class="active"';}?>>
 						<a href="catalog_badges.php" class="dropdown-toggle">
 							<i class="menu-icon"><i class="fa fa-shopping-cart"></i></i>
-							<span class="menu-text"> Consultas </span>
+							<?php if ($user_q['rol'] == 'Administrador' || $user_q['rol'] == 'Coordinador'|| $user_q['rol'] == 'Lider' ) {?>
+								<span class="menu-text"> Lider</span>
+								<?php  } else {?>
+                               <span class="menu-text"> Consultas </span>
+							   <?php  } ?>
 
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
@@ -144,11 +148,11 @@ $url = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
 						<ul class="submenu">
 
-						<?php if ($user_q['rol'] == 'Administrador' || $user_q['rol'] == 'Coordinador') {?>
+						<?php if ($user_q['rol'] == 'Administrador' || $user_q['rol'] == 'Coordinador' || $user_q['rol'] == 'Lider' ) {?>
 							<li <?php  if (strpos($url,'catalog_badges') !== false) {echo 'class="active"';}?>>
 								<a href="TYT.php">
 									<i class="menu-icon"></i><i class="fa fa-caret-right"></i>
-									Pruebas TYT
+									Exel TYT
 								</a>
                                  
 								<b class="arrow"></b>
@@ -156,21 +160,36 @@ $url = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 							<?php }else{ ?>
 								<li <?php  if (strpos($url,'catalog_badges') !== false) {echo 'class="active"';}?>>
 
-                                <a href="#">
+                                <a href="copis.php">
 									<i class="menu-icon"></i><i class="fa fa-caret-right"></i>
 									Pruebas TYT
 								</a>
                                  
 								<b class="arrow"></b>
-							<?php } ?>
-							<li <?php  if (strpos($url,'catalog_refresh.php') !== false) {echo 'class="active"';}?>>
-								<a href="catalog_refresh.php">
-									<i class="menu-icon"></i><i class="fa fa-caret-right"></i>
-									ARL
-								</a>
+								</li>
 
+							<?php } ?>
+							<?php if ($user_q['rol'] == 'Administrador' || $user_q['rol'] == 'Coordinador' || $user_q['rol'] == 'Lider') {?>
+							<li <?php  if (strpos($url,'catalog_badges') !== false) {echo 'class="active"';}?>>
+								<a href="TXTOTyt.php">
+									<i class="menu-icon"></i><i class="fa fa-caret-right"></i>
+									EDITAR TEXTO TYT
+								</a>
+                                 
 								<b class="arrow"></b>
 							</li>
+							<?php } ?>
+							<?php if ($user_q['rol'] == 'Administrador' || $user_q['rol'] == 'Coordinador' || $user_q['rol'] == 'Lider') {?>
+							<li <?php  if (strpos($url,'catalog_badges') !== false) {echo 'class="active"';}?>>
+								<a href="magna.php">
+									<i class="menu-icon"></i><i class="fa fa-caret-right"></i>
+									Respuesta Magna
+								</a>
+                                 
+								<b class="arrow"></b>
+							</li>
+							<?php } ?>
+								
 						</ul>
 					</li>
 						
@@ -207,14 +226,7 @@ $url = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 						<b class="arrow"></b>
 
 						<ul class="submenu">
-							<li <?php if (strpos($url,'badge_upload.php') !== false) {echo 'class="active"';} if (strpos($url,'badge_texts_add.php') !== false) {echo 'class="active"';}?>>
-								<a href="badge_upload.php">
-									<i class="menu-icon"></i><i class="fa fa-caret-right"></i>
-									Subir Nueva Placa
-								</a>
-
-								<b class="arrow"></b>
-							</li>
+							
 								<li <?php if (strpos($url,'badge_texts_search.php') !== false) {echo 'class="active"';} if (strpos($url,'badge_texts.php') !== false) {echo 'class="active"';}?>>
 								<a href="badge_texts_search.php">
 									<i class="menu-icon"></i><i class="fa fa-caret-right"></i>

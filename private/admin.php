@@ -97,25 +97,25 @@ $row = $resultado->fetch_assoc();
 
 										</div>
 										</a>
-										<a href="#">
+										<a href="noti.php">
 										<div class="infobox infobox-blue">
 											<div class="infobox-icon">
 												<i class="ace-icon fa fa-newspaper-o" style="padding-top:2px"></i>
 											</div>
 											<div class="infobox-data">
 												<span class="infobox-data-number"><?php //echo $newscount_count; ?></span>
-												<div class="infobox-content">Noticias Creadas</div>
+												<div class="infobox-content">Crear Noticias </div>
 											</div>
 										</div>
 										</a>
-									<a href="#">
+									<a href="vernoti.php">
 										<div class="infobox infobox-pink">
 											<div class="infobox-icon">
 												<i class="ace-icon fa fa-key" style="padding-top:2px"></i>
 											</div>
 											<div class="infobox-data">
 												<span class="infobox-data-number"><?php //echo $roomscount_count; ?></span>
-												<div class="infobox-content">Salas Creadas</div>
+												<div class="infobox-content">Noticias Creadas</div>
 											</div>
 										</div>
 										</a>

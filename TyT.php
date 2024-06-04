@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // Obtener el resultado
         $result = $stmt->get_result();
-        
+       
         if ($result->num_rows > 0) {
             // Fetch all rows from the result set
             $r = $result->fetch_assoc();
@@ -198,7 +198,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								</small>
 							</h1>
 
-							<h2> Validación de Datos de las Pruebas TYT</h2>
+							<h2> Validación de Datos de las Pruebas TYT <?php  $noti = "SELECT * FROM texto";
+							$edino = $conexion->query($noti);
+							$re = $edino->fetch_assoc(); echo $re['Calendario']; ?></h2>
 						</div><!-- /.page-header -->
 
 						<div class="row">

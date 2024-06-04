@@ -98,7 +98,7 @@ $sql = "UPDATE registroetapaproductiva SET
             echo "<script>
                alert ('SU EDICION FUE EXITOSA');
             
-               window.location='../../private/index.php'
+               window.location='../../private/Miaprendiz.php'
                </script>";  
             }else {
             

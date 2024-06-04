@@ -13,14 +13,14 @@ if(isset($_GET['id'])){
     echo "<script>
 				alert ('tomas');
 
-				window.location='../../loginphp/loginAprendiz.php';
+				window.location='../loginphp/loginAprendiz.php';
 			  </script>";
    }
 }else {
     echo "<script>
 				alert ('error');
 
-				window.location='../../loginphp/loginAprendiz.php';
+				window.location='../loginphp/loginAprendiz.php';
 			  </script>";
 }
 ?>

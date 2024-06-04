@@ -19,7 +19,7 @@ if (isset($_POST['email'])) {
     $row = $resul->fetch_assoc();
     $te =$row['id'];
 
-    $url='http://localhost/xampp/Epceicotol/Epceicotol/loginphp/restablecer.php?id='.$te;
+    $url='http://localhost/xampp/proyecto/loginphp/restablecer.php?id='.$te;
     if ($resul->num_rows > 0) {
         $mail = new PHPMailer(true);
         try {

@@ -305,7 +305,19 @@ if(isset($_SESSION['cedula'])){
             </div>
         </div>
     </div>
+    <div class="mensa">
+            <?php
+                $bitacora = $r['FormatoGFPIF147Bitacoras'];
+                
+                if ( $bitacora == '' || $bitacora == NULL ) {
+                    echo '<div class="custom-alert custom-rojo">ENVIE LAS BITACORAS POR FAVOR .</div>';
+                } else {
+                    echo '<P>.</P>';
+                }
+                ?>
+          </div>
     <div class="tabla">
+            
         <table>
             <thead>
                 <tr>

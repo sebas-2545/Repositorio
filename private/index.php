@@ -265,8 +265,13 @@ $enlace_mailto = 'mailto:' . $destinatario . '?subject=' . $asunto . '&body=' . 
             
         </div>
             <div class="tk">
-            <a href="<?php echo $tarea;?> " class="srm">SOLICITAR RESPUESTA MAGNA</a>
+            <?php if ($r['Respuesmagna'] == "NULL" || ''){ ?>
+                <a href="<?php echo $tarea;?> " class="srm">SOLICITAR RESPUESTA MAGNA</a>
 
+            <?php } else{?>
+                <p></p>
+            <?php } 
+            ?>
             <div class="input-container">
                 <input type="date" name="fechafin" class="input-field" value="<?php if($ress->num_rows>0){ echo $r['FechaEvaluacionFinal']; } ?>" >
                 <label for="input-field" class="input-label">Fecha de Evaluación Final*</label>

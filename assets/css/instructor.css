@@ -26,7 +26,12 @@
 body {
   background-color: #928e8e;
 }
-
+td{
+  max-width: 120px; /* Ajusta este valor según tus necesidades */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 th {
   background-color: #f2f2f2; /* Cor de fundo das células do cabeçalho */
   border-bottom: 1px solid #ddd; /* Borda inferior das células do cabeçalho */
@@ -170,13 +175,33 @@ a {
   color: #007bff;
   font-weight: bold;
 }
+.tesseb{
+  max-width: 120px; /* Ajusta este valor según tus necesidades */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;}
 
 a:hover {
   text-decoration: underline;
 }
 @media screen and (max-width: 600px) {
-  header{
-    padding-top: 2%;
-    width: 77vh;
-  }
+  td{
+    max-width: 8dvh !important; /* Ajusta este valor según tus necesidades */
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;}
+th{
+  max-width: 80px !important; /* Ajusta este valor según tus necesidades */
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+th:nth-child(n+4):nth-child(-n+45),
+td:nth-child(n+4):nth-child(-n+45){
+  display: none;
+ }
+ th:nth-child(48),
+ td:nth-child(48){
+  display: none;
+ }
 }

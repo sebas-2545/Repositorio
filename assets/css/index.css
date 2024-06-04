@@ -343,77 +343,7 @@ th {
 .srm:hover {
   background-color: #0056b3; /* Cambia el color de fondo al pasar el ratón */
 }
-@media screen and (max-width: 600px) {
-  *{
-    font-size: 12px;
-  }
-  .tabla{
-    width: 100%;
 
-    margin-left: 0px;
-    display: flex;
-    flex-direction: column;
-
-
-  }
-  table{
-    width: 50%;
-  }
-  th td{
-    font-size: 8px;
-  }
-  
-  .Cuadra{
-    margin-left: 0%;
-    width: 100%;
-  }
-  .Cuadraa{
-    margin-left: 0%;
-    width: 100%;
-  }
-  .input-field {
-    padding: 15px;
-    width: 80%;
-    font-size: 8px;
-  }
-   select{
-    padding: 13.5px;
-    font-size: 9px;
-    width: 80px;
-
-  }
-  .esta {
-    width: 100% ;
-  }
-  #input{
-    width: 100%;
-  }
-  .input-label{
-    font-size: 7px;
-      transition: none;
-      color: #007bff;
-  }
-
-  select:focus + .input-label {
-    top: -20px;
-    font-size: 8px;
-    color: #007bff;
-  }
-  .input-highlight{
-    transition: none;
-  }
-  input:focus + .input-label {
-    top: -20px;
-    font-size: 8px;
-    color: #007bff;
-  }
-  .button {
-    width: 100%;
-  }
-  .brn{
-    width: 100%;
-  }
-}
 .floating-button {
   position: fixed;
   bottom: 20px;
@@ -505,4 +435,78 @@ th {
   width: 220px;
   height: 220px;
   opacity: 1;
+}
+@media screen and (max-width: 600px) {
+  *{
+    font-size: 12px;
+  }
+  .tabla{
+    width: 100%;
+
+    margin-left: 0px;
+    display: flex;
+    flex-direction: column;
+
+
+  }
+  table{
+    width: 50%;
+  }
+  th td{
+    font-size: 8px;
+  }
+  
+  .Cuadra{
+    margin-left: 0%;
+    width: 100%;
+  }
+  .Cuadraa{
+    margin-left: 0%;
+    width: 100%;
+  }
+  .input-field {
+    padding: 15px;
+    width: 80%;
+    font-size: 8px;
+  }
+   select{
+    padding: 13.5px;
+    font-size: 9px;
+    width: 80px;
+
+  }
+  .esta {
+    width: 100% ;
+  }
+  #input{
+    width: 100%;
+  }
+  .input-label{
+    font-size: 7px;
+      transition: none;
+      color: #007bff;
+  }
+
+  select:focus + .input-label {
+    top: -20px;
+    font-size: 8px;
+    color: #007bff;
+  }
+  .input-highlight{
+    transition: none;
+  }
+  input:focus + .input-label {
+    top: -20px;
+    font-size: 8px;
+    color: #007bff;
+  }
+  .button {
+    width: 100%;
+  }
+  .brn{
+    width: 100%;
+  }
+  .floating-button{
+    z-index:auto;
+  }
 }

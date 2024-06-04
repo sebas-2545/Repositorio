@@ -10,24 +10,31 @@ if (isset($_SESSION['id_usuario'])){
 
 if (!empty($_POST)){  // si no esta vacio
 	$usuario = mysqli_real_escape_string($conexion, $_POST['user']);
-	$password = mysqli_real_escape_string($conexion, $_POST['pass']);
-	$password_encriptada = sha1($password);
+	$password =$_POST['pass'];
 	$sql = "SELECT u.idusuarios, u.Usuario, u.Password, r.nombre as rol FROM usuarios u left join roles r on u.rol_id=r.id
-			WHERE usuario ='$usuario ' and password = '$password_encriptada' ";
+			WHERE usuario ='$usuario'";
 
 			$resultado = $conexion->query($sql);
 			$rows = $resultado->num_rows;
 
 			if ($rows > 0){
-				$row = $resultado-> fetch_assoc(); // devuelve un array asociativo
-				$_SESSION['id_usuario']= $row["idusuarios"];
-				$_SESSION['rol']= $row["rol"];
-				header("Location:../private/admin.php");
+					$row = $resultado-> fetch_assoc(); 
+					if(password_verify($password,$row['Password'])){
+						$_SESSION['id_usuario']= $row["idusuarios"];
+						$_SESSION['rol']= $row["rol"];
+						header("Location:../private/admin.php");
+				}else{
+					echo "<script>
+				alert ('El usuario o clave incorrecta');
+
+				window.location='../../loginphp/index.php';
+			  </script>";
+				}
 			}else{
 				echo "<script>
 				alert ('El usuario o clave incorrecta');
 
-				window.location='index.php';
+				window.location='../../loginphp/index.php';
 			  </script>";
 			}
 } 
@@ -146,16 +153,16 @@ if (!empty($_POST)){  // si no esta vacio
 				<p>
 				Ingressa tu correo electronico para recibir las instrucciones
 				</p>
-				<form>
-					<fieldset>
+				<form method="POST" action="../assets/controller/RecuperarIns.php">
+				<fieldset>
 					<label class="block clearfix">
 					<span class="block input-icon input-icon-right">
-					<input type="email" class="form-control" placeholder="Email" />
+					<input type="email" name="email" class="form-control" placeholder="Email" />
 					<i class="ace-icon fa fa-envelope"></i>
 					</span>
 					</label>
 					<div class="clearfix">
-					<button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+					<button type="submit" class="width-35 pull-right btn btn-sm btn-danger">
 					<i class="ace-icon fa fa-lightbulb-o"></i>
 					<span class="bigger-110">Enviar</span>
 					</button>
